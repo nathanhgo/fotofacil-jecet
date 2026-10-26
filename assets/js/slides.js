@@ -235,6 +235,75 @@
     });
   });
 
+  /* ---------- explorador do catálogo (categoria -> nós) ------------------- */
+  document.querySelectorAll("[data-catalogo]").forEach((cat) => {
+    const alvo = cat.querySelector("#cat-nos");
+    const rotulo = cat.querySelector("#cat-rotulo");
+    const pintar = (botao) => {
+      const nomes = (botao.dataset.nos || "").split(" · ").filter(Boolean);
+      alvo.innerHTML = nomes.map((n) => `<span class="no">${n}</span>`).join("");
+      rotulo.textContent = `${botao.textContent.replace(/\s*\d+$/, "").trim()} · ${nomes.length} ${nomes.length === 1 ? "nó" : "nós"} · clique noutra categoria para ver os nós dela`;
+    };
+    cat.querySelectorAll(".cat").forEach((botao) => {
+      botao.addEventListener("click", () => {
+        cat.querySelectorAll(".cat").forEach((b) => b.setAttribute("aria-selected", "false"));
+        botao.setAttribute("aria-selected", "true");
+        pintar(botao);
+      });
+    });
+    const primeiro = cat.querySelector(".cat");
+    if (primeiro) pintar(primeiro);
+  });
+
+  /* ---------- testes reais do projeto (slide de verificação) -------------- */
+  const CODIGOS = {
+    uniforme: [
+      "func TestBlurNodeMeanOnUniformImageStaysUniform(t *testing.T) {",
+      "    img := solidColorImage(5, 5, 100, 100, 100)",
+      "    ctx := &ProcessContext{Images: []image.Image{img}}",
+      "    node := &BlurNode{ID: \"blur1\", Method: \"mean\", KernelSize: 3}",
+      "",
+      "    if err := node.Process(ctx); err != nil {",
+      "        t.Fatalf(\"BlurNode failed: %v\", err)",
+      "    }",
+      "    r, _, _, _ := ctx.Images[0].At(2, 2).RGBA()",
+      "    if r>>8 != 100 { // o miolo tem que continuar 100",
+      "        t.Errorf(\"expected uniform image to remain uniform after mean blur, got %d\", r>>8)",
+      "    }",
+      "}",
+    ].join("\n"),
+    mediana: [
+      "func TestBlurNodeMedianRemovesSaltNoise(t *testing.T) {",
+      "    img := solidColorImage(5, 5, 50, 50, 50)",
+      "    // um unico pixel \"sal\" no meio da matriz",
+      "    img.Set(2, 2, color.RGBA{255, 255, 255, 255})",
+      "",
+      "    ctx := &ProcessContext{Images: []image.Image{img}}",
+      "    node := &BlurNode{ID: \"blur2\", Method: \"median\", KernelSize: 3}",
+      "",
+      "    if err := node.Process(ctx); err != nil {",
+      "        t.Fatalf(\"BlurNode failed: %v\", err)",
+      "    }",
+      "    r, _, _, _ := ctx.Images[0].At(2, 2).RGBA()",
+      "    if r>>8 != 50 { // a mediana descarta o ponto fora do padrao",
+      "        t.Errorf(\"expected median filter to remove the salt-noise outlier, got %d\", r>>8)",
+      "    }",
+      "}",
+    ].join("\n"),
+  };
+  document.querySelectorAll("[data-teste]").forEach((bloco) => {
+    const pre = bloco.querySelector("#codigo-teste");
+    const pintar = (chave) => { if (pre && CODIGOS[chave]) pre.textContent = CODIGOS[chave]; };
+    bloco.querySelectorAll(".chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        bloco.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-selected", "false"));
+        chip.setAttribute("aria-selected", "true");
+        pintar(chip.dataset.teste);
+      });
+    });
+    pintar("uniforme");
+  });
+
   /* ---------- início ------------------------------------------------------ */
   const hash = parseInt((location.hash || "").replace("#", ""), 10);
   const inicial = Number.isFinite(hash) && hash >= 1 && hash <= total ? hash - 1 : 0;
