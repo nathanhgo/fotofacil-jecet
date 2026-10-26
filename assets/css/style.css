@@ -345,13 +345,13 @@ pre.codigo .ok { color: var(--ok); }
 .capa .apoio { display: flex; align-items: center; gap: 16px; }
 .capa .apoio img { height: 30px; width: auto; display: block; }
 .capa .centro {
-  flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px;
+  flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px;
   padding: 0 60px;
 }
-.capa h1 { font-size: 46px; max-width: 30ch; color: var(--lav-deep); }
+.capa h1 { font-size: 50px; max-width: 44ch; color: var(--lav-deep); }
 .capa .sub { font-size: 17.5px; color: var(--soft); max-width: 64ch; }
 .capa .autores { display: flex; gap: 44px; padding-top: 8px; }
-.capa .autor .nome { font-size: 17px; color: var(--ink); font-weight: 500; }
+.capa .autor .nome { font-size: 18px; color: var(--ink); font-weight: 500; }
 .capa .autor .org { font-size: 14px; color: #37354f; font-family: var(--mono); letter-spacing: .02em; }
 .capa .chaves { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .capa .chaves .chip { background: var(--lav-soft); border-color: var(--lav-line2); }
@@ -403,6 +403,10 @@ pre.codigo .ok { color: var(--ok); }
   background: linear-gradient(90deg, var(--lav) 0%, var(--lav-deep) 100%);
   transition: width .22s ease;
   z-index: 30;
+}
+#progresso::before {
+  content: ""; position: fixed; left: 0; top: 0; right: 0; height: 3px;
+  background: rgba(74, 58, 166, .12);
 }
 #nav {
   position: fixed; right: 18px; bottom: 16px;
