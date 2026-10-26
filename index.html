@@ -10,7 +10,18 @@
 </head>
 <body>
 
-<div id="progresso" role="presentation"></div>
+<div id="progresso" role="presentation"><span class="valor"></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ic-drop" viewBox="0 0 16 16"><path d="M8 2.5s-4.2 4.4-4.2 7a4.2 4.2 0 0 0 8.4 0c0-2.6-4.2-7-4.2-7z"/></symbol>
+  <symbol id="ic-camadas" viewBox="0 0 16 16"><path d="M8 2.6 2.6 5.5 8 8.4l5.4-2.9z"/><path d="M2.6 9.2 8 12.1l5.4-2.9"/></symbol>
+  <symbol id="ic-barras" viewBox="0 0 16 16"><path d="M2.5 13.4h11"/><path d="M4.6 13.4V8.2M8 13.4V4.6M11.4 13.4v-4"/></symbol>
+  <symbol id="ic-grade" viewBox="0 0 16 16"><rect x="2.9" y="2.9" width="4.6" height="4.6" rx="1"/><rect x="8.5" y="2.9" width="4.6" height="4.6" rx="1"/><rect x="2.9" y="8.5" width="4.6" height="4.6" rx="1"/><rect x="8.5" y="8.5" width="4.6" height="4.6" rx="1"/></symbol>
+  <symbol id="ic-porta" viewBox="0 0 16 16"><path d="M2.6 3.4h4.8v9.2H2.6z"/><path d="M7.4 8h6"/><path d="M11 5.6 13.4 8 11 10.4"/></symbol>
+  <symbol id="ic-sol" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1.4v1.8M8 12.8v1.8M1.4 8h1.8M12.8 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M12.6 3.4l-1.3 1.3M4.7 11.3l-1.3 1.3"/></symbol>
+  <symbol id="ic-girar" viewBox="0 0 16 16"><path d="M13.2 8a5.2 5.2 0 1 1-1.7-3.9"/><path d="M13.6 2.6v3.3h-3.3"/></symbol>
+  <symbol id="ic-brilho" viewBox="0 0 16 16"><path d="M8 2.4l1.5 3.7 3.7 1.5-3.7 1.5L8 12.8 6.5 9.1 2.8 7.6l3.7-1.5z"/></symbol>
+</svg>
+
 
 <main id="palco">
 <div id="quadro">
@@ -120,8 +131,8 @@
       <div class="cartao branco"><span class="rotulo">Objetivo 3</span><h3>Cobrir PDI clássico</h3><p>Do ajuste básico à análise: cor, filtros, bordas, frequência.</p></div>
       <div class="cartao branco"><span class="rotulo">Objetivo 4</span><h3>Servir à pesquisa</h3><p>Preparar conjuntos de imagens para treinar modelos de IA.</p></div>
     </div>
-    <div class="grade g5 aparece d4">
-      <div><span class="num-rotulo">palavras-chave do resumo aprovado</span></div>
+    <div class="grade g5 aparece d4" style="align-items:center">
+      <div><span class="num-rotulo">Palavras-chave</span></div>
       <span class="chip">processamento de imagens</span><span class="chip">programação visual</span><span class="chip">automação em lote</span><span class="chip">arquitetura de software</span>
     </div>
   </div>
@@ -183,7 +194,7 @@
   <header class="faixa"><span class="rotulo">Metodologia · arquitetura</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
   <h2 class="titulo aparece d1">Duas camadas, conversando em tempo real</h2>
   <div class="corpo">
-    <div class="grade g12" style="flex:1">
+    <div class="grade g12" style="flex:1;grid-template-columns:1.75fr 1fr">
       <div class="aparece d2" style="display:flex;flex-direction:column;gap:14px">
         <svg class="diagrama" viewBox="0 0 470 262" role="img" aria-label="Diagrama de arquitetura em duas camadas">
           <defs>
@@ -224,26 +235,18 @@
   <div class="corpo">
     <div class="catalogo aparece d2" data-catalogo>
       <div class="lista-cat" role="tablist">
-        <button class="cat" aria-selected="true"  data-cor="#22d3ee" data-nos="Convolução · Equalização de Histograma · Detecção de Bordas · Operações Morfológicas · Blur/Suavização · Ruído · Limiarização · FFT">Filtros &amp; Realce<span class="ponto" style="background:#22d3ee"></span><span class="qtd">8</span></button>
-        <button class="cat" aria-selected="false" data-cor="#22c55e" data-nos="Detecção de Mudanças · Empilhamento de Imagens · Registro de Imagens · Composição de Bandas · Álgebra de Bandas (NDVI) · Pan-sharpening">Sensoriamento Remoto<span class="ponto" style="background:#22c55e"></span><span class="qtd">6</span></button>
-        <button class="cat" aria-selected="false" data-cor="#fb923c" data-nos="Comparação Visual · Histograma · Matriz de Pixels · Estatísticas da Imagem">Visualização &amp; Análise<span class="ponto" style="background:#fb923c"></span><span class="qtd">4</span></button>
-        <button class="cat" aria-selected="false" data-cor="#f59e0b" data-nos="Normalização · Augmentação de Dados · Exportação Rotulada">Dataset / ML<span class="ponto" style="background:#f59e0b"></span><span class="qtd">3</span></button>
-        <button class="cat" aria-selected="false" data-cor="#38bdf8" data-nos="Image Input · Image Output">Entrada/Saída<span class="ponto" style="background:#38bdf8"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#eab308" data-nos="Brightness &amp; Contrast · Color Space">Ajustes Básicos<span class="ponto" style="background:#eab308"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#a855f7" data-nos="Crop/Resize · Rotate/Flip">Transformação<span class="ponto" style="background:#a855f7"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#ec4899" data-nos="IA/Machine Learning">Inteligência Artificial<span class="ponto" style="background:#ec4899"></span><span class="qtd">1</span></button>
+        <button class="cat" aria-selected="true"  data-cor="#22d3ee" data-icone="drop" data-nos="Convolução · Equalização de Histograma · Detecção de Bordas · Operações Morfológicas · Blur/Suavização · Ruído · Limiarização · FFT">Filtros &amp; Realce<span class="ponto" style="background:#22d3ee"></span><span class="qtd">8</span></button>
+        <button class="cat" aria-selected="false" data-cor="#22c55e" data-icone="camadas" data-nos="Detecção de Mudanças · Empilhamento de Imagens · Registro de Imagens · Composição de Bandas · Álgebra de Bandas (NDVI) · Pan-sharpening">Sensoriamento Remoto<span class="ponto" style="background:#22c55e"></span><span class="qtd">6</span></button>
+        <button class="cat" aria-selected="false" data-cor="#fb923c" data-icone="barras" data-nos="Comparação Visual · Histograma · Matriz de Pixels · Estatísticas da Imagem">Visualização &amp; Análise<span class="ponto" style="background:#fb923c"></span><span class="qtd">4</span></button>
+        <button class="cat" aria-selected="false" data-cor="#f59e0b" data-icone="grade" data-nos="Normalização · Augmentação de Dados · Exportação Rotulada">Dataset / ML<span class="ponto" style="background:#f59e0b"></span><span class="qtd">3</span></button>
+        <button class="cat" aria-selected="false" data-cor="#38bdf8" data-icone="porta" data-nos="Image Input · Image Output">Entrada/Saída<span class="ponto" style="background:#38bdf8"></span><span class="qtd">2</span></button>
+        <button class="cat" aria-selected="false" data-cor="#eab308" data-icone="sol" data-nos="Brightness &amp; Contrast · Color Space">Ajustes Básicos<span class="ponto" style="background:#eab308"></span><span class="qtd">2</span></button>
+        <button class="cat" aria-selected="false" data-cor="#a855f7" data-icone="girar" data-nos="Crop/Resize · Rotate/Flip">Transformação<span class="ponto" style="background:#a855f7"></span><span class="qtd">2</span></button>
+        <button class="cat" aria-selected="false" data-cor="#ec4899" data-icone="brilho" data-nos="IA/Machine Learning">Inteligência Artificial<span class="ponto" style="background:#ec4899"></span><span class="qtd">1</span></button>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
         <span class="rotulo" id="cat-rotulo">Filtros &amp; Realce · 8 nós</span>
         <div class="nos" id="cat-nos"></div>
-        <div class="cartao destaque" style="margin-top:auto">
-          <span class="rotulo">Três frentes dentro do catálogo</span>
-          <ul class="lista">
-            <li><b>Edição:</b> recorte, rotação, brilho, contraste.</li>
-            <li><b>PDI clássico:</b> cor, suavização, bordas, limiarização, frequência.</li>
-            <li><b>Preparação de dados:</b> augmentação e exportação rotulada para treino.</li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -294,26 +297,17 @@
           <img src="assets/img/pdi/00-original.jpg" alt="Imagem original">
           <div class="depois"><img src="assets/img/pdi/02-equalizada.jpg" alt="Imagem após a equalização"></div>
           <div class="pino"></div>
-          <span class="etiqueta esq">original</span>
-          <span class="etiqueta dir">após equalização</span>
+          <span class="etiqueta esq">escala de cinza</span>
+          <span class="etiqueta dir">cinza + equalização</span>
         </div>
-        <span class="mono" style="font-size:11.5px;color:var(--dim)">resultado produzido pelo nó de equalização do FotoFácil, sobre a foto de exemplo</span>
+        <span class="mono" style="font-size:11.5px;color:var(--dim)">os dois nós aplicados nesta ordem: escala de cinza e, depois, equalização de histograma</span>
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
-        <figure class="fig">
-          <img src="assets/img/pdi/03-histograma.png" alt="Histograma da imagem">
-          <figcaption><b>Histograma</b>: quantos pixels existem em cada nível de intensidade. A equalização redistribui essa distribuição.</figcaption>
+        <figure class="fig alta">
+          <img src="assets/img/pdi/15-histogramas-antes-depois.png" alt="Histogramas da imagem em escala de cinza e depois da equalização">
+          <figcaption><b>Histogramas.</b> À esquerda, a imagem em escala de cinza: os valores se concentram numa faixa estreita. À direita, depois da equalização: eles ocupam toda a escala, e é isso que o contraste ganha.</figcaption>
         </figure>
-        <table class="tabela">
-          <thead><tr><th>Medida na imagem equalizada</th><th>Valor</th></tr></thead>
-          <tbody>
-            <tr><td>Intensidade média</td><td>128,44</td></tr>
-            <tr><td>Mediana</td><td>131,00</td></tr>
-            <tr><td>Desvio padrão (contraste)</td><td>73,40</td></tr>
-            <tr class="destaque"><td>MSE / PSNR contra a escala de cinza</td><td>1950,91 / 15,23 dB</td></tr>
-          </tbody>
-        </table>
-        <p style="font-size:14.5px">O desvio padrão mede o contraste: quanto maior, mais a imagem usa os extremos. É esse número que muda quando a equalização funciona.</p>
+        <p style="font-size:15px">O <b>desvio padrão</b>, que mede o contraste, sai de <b>37,5</b> na escala de cinza e chega a <b>73,4</b> depois da equalização. Uma imagem equalizada usa quase toda a escala de 0 a 255.</p>
       </div>
     </div>
   </div>

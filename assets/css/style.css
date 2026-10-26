@@ -66,15 +66,8 @@ html, body {
   flex-direction: column;
 }
 /* espinha lavanda: identidade repetida em todos os slides */
-.slide::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 9px;
-  border-radius: 22px 0 0 22px;
-  background: var(--lav);
-}
-.slide.capa::before, .slide.fim::before { display: none; }
+/* a linha lateral virou a barra de progresso, fixa na janela (ver #progresso) */
+.slide::before { display: none; }
 /* filete sob o título */
 .slide h2.titulo::after {
   content: "";
@@ -199,6 +192,9 @@ figure.fig img, figure.fig canvas {
 /* figura que precisa caber centralizada na coluna, sem esticar */
 figure.fig.centrada { justify-content: center; height: 100%; }
 figure.fig.centrada img { width: auto; max-width: 100%; max-height: 300px; }
+/* figura que precisa de mais altura que o padrão (histogramas lado a lado) */
+.fig.alta { flex: 0 0 auto; }
+.fig.alta img { max-height: 220px; }
 figure.fig figcaption { font-family: var(--mono); font-size: 11px; line-height: 1.4; color: var(--dim); letter-spacing: .02em; }
 figure.fig figcaption b { color: var(--lav-text); font-weight: 500; }
 .fig-alta img { max-height: 100%; object-fit: contain; }
@@ -296,8 +292,14 @@ figure.fig figcaption b { color: var(--lav-text); font-weight: 500; }
 .catalogo .cat[aria-selected="true"] { background: var(--lav-soft2); border-color: var(--lav); color: var(--ink); }
 .catalogo .nos { display: flex; flex-wrap: wrap; gap: 7px; align-content: flex-start; }
 .catalogo .nos .no {
-  font-size: 14px; padding: 7px 12px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 15px; padding: 9px 14px; border-radius: 8px;
   background: var(--lav-soft); border: 1px solid var(--lav-line); color: var(--ink);
+}
+.catalogo .nos .no svg {
+  width: 16px; height: 16px; flex: 0 0 auto;
+  fill: none; stroke: currentColor; stroke-width: 1.4;
+  stroke-linecap: round; stroke-linejoin: round;
 }
 
 /* blocos de codigo */
@@ -320,7 +322,7 @@ pre.codigo .ok { color: var(--ok); }
 }
 
 /* diagramas SVG */
-.diagrama { width: 100%; height: auto; }
+.diagrama { width: auto; max-width: 100%; height: 236px; margin: 0 auto; }
 .diagrama text { font-family: var(--sans); fill: var(--soft); }
 .diagrama .cx { fill: #fff; stroke: var(--lav-line2); stroke-width: 1.4; }
 .diagrama .cx-lav { fill: var(--lav-soft); stroke: var(--lav-line2); }
@@ -351,13 +353,14 @@ pre.codigo .ok { color: var(--ok); }
   flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px;
   padding: 0 60px;
 }
-.capa h1 { font-size: 50px; max-width: 44ch; color: var(--lav-deep); }
+.capa h1 { font-size: 50px; max-width: 44ch; color: var(--lav-deep); text-align: center; margin: 0 auto; }
 .capa .sub { font-size: 17.5px; color: var(--soft); max-width: 64ch; }
-.capa .autores { display: flex; gap: 44px; padding-top: 8px; justify-content: space-between; }
+.capa .autores { display: flex; gap: 64px; padding-top: 8px; justify-content: center; }
 .capa .autor .nome { font-size: 18px; color: var(--ink); font-weight: 500; }
 .capa .autor .org { font-size: 14px; color: #37354f; font-family: var(--mono); letter-spacing: .02em; }
 .capa .chaves { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .capa .chaves .chip { background: var(--lav-soft); border-color: var(--lav-line2); }
+.capa .autor { text-align: center; }
 .capa .rodape {
   border-top: 1px solid var(--lav-line);
   padding: 13px 60px 15px;
@@ -402,14 +405,14 @@ pre.codigo .ok { color: var(--ok); }
 
 /* ---------- navegação ----------------------------------------------------- */
 #progresso {
-  position: fixed; left: 0; top: 0; height: 3px; width: 0;
-  background: var(--lav-deep);
-  transition: width .22s ease;
+  position: fixed; left: 0; top: 0; bottom: 0; width: 9px;
+  background: rgba(74, 58, 166, .12);
   z-index: 30;
 }
-#progresso::before {
-  content: ""; position: fixed; left: 0; top: 0; right: 0; height: 3px;
-  background: rgba(74, 58, 166, .12);
+#progresso .valor {
+  display: block; width: 100%; height: 0;
+  background: var(--lav-deep);
+  transition: height .22s ease;
 }
 #nav {
   position: fixed; right: 18px; bottom: 16px;

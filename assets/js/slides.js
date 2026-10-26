@@ -58,7 +58,8 @@
   function anterior() { irPara(atual - 1); }
 
   function atualizar() {
-    progresso.style.width = `${((atual + 1) / total) * 100}%`;
+    const preenchimento = progresso.querySelector(".valor");
+    if (preenchimento) preenchimento.style.height = `${((atual + 1) / total) * 100}%`;
     contador.textContent = `${String(atual + 1).padStart(2, "0")} / ${total}`;
   }
 
@@ -243,7 +244,11 @@
     const rotulo = cat.querySelector("#cat-rotulo");
     const pintar = (botao) => {
       const nomes = (botao.dataset.nos || "").split(" · ").filter(Boolean);
-      alvo.innerHTML = nomes.map((n) => `<span class="no">${n}</span>`).join("");
+      const icone = botao.dataset.icone || "brilho";
+      const cor = botao.dataset.cor || "#4a3aa6";
+      alvo.innerHTML = nomes
+        .map((n) => `<span class="no"><svg aria-hidden="true" style="color:${cor}"><use href="#ic-${icone}"/></svg>${n}</span>`)
+        .join("");
       rotulo.textContent = `${botao.textContent.replace(/\s*\d+$/, "").trim()} · ${nomes.length} ${nomes.length === 1 ? "nó" : "nós"}`;
     };
     cat.querySelectorAll(".cat").forEach((botao) => {
