@@ -204,7 +204,7 @@ figure.fig figcaption b { color: var(--lav-text); font-weight: 500; }
 .fig-alta img { max-height: 100%; object-fit: contain; }
 .fig-baixa img { max-height: 150px; width: auto; max-width: 100%; margin: 0 auto; }
 /* miniaturas que precisam bater de altura entre si (slide de dataset) */
-.fig.fixa img { height: 128px; width: auto; max-width: 100%; margin: 0 auto; }
+.fig.fixa img { height: 128px; width: auto; max-width: 100%; margin: 0; }
 .galeria .visor img { width: auto; max-width: 100%; max-height: 300px; }
 .moldura { border: 1px solid var(--lav-line); border-radius: 12px; padding: 8px; background: #fff; }
 .moldura img { display: block; width: 100%; border-radius: 7px; }
