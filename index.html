@@ -17,24 +17,11 @@
 
 <!-- ═══════════════════ 1 · CAPA ═══════════════════ -->
 <section class="slide capa" id="s-capa" data-titulo="Capa" data-secao="Abertura">
-  <img class="marca-fundo" src="assets/img/logos/jecet-marca.png" alt="" aria-hidden="true">
   <div class="faixa-topo">
     <img class="logo-evento" src="assets/img/logos/jecet-faixa.jpg" alt="JECET 2026 — IFSP Campus Jacareí">
-    <div class="apoio">
-      <img src="assets/img/logos/cnpq.png" alt="CNPq">
-      <img src="assets/img/logos/mcti.png" alt="Ministério da Ciência, Tecnologia e Inovação">
-    </div>
   </div>
   <div class="centro">
-    <span class="rotulo aparece d1">JECET 2026 · Inovação · IFSP Campus Jacareí</span>
-    <h1 class="aparece d2">FotoFácil: um editor de imagens por nós para automatizar edições em lote <em>sem programar</em></h1>
-    <p class="sub aparece d3">Ferramenta de código aberto em que o processamento de imagens é montado por blocos: você desenha o fluxo na tela, o sistema calcula a ordem de execução e aplica a mesma receita em milhares de arquivos.</p>
-    <div class="chaves aparece d4">
-      <span class="chip">processamento de imagens</span>
-      <span class="chip">programação visual</span>
-      <span class="chip">automação em lote</span>
-      <span class="chip">código aberto</span>
-    </div>
+    <h1 class="aparece d2">FotoFácil: um editor de imagens por nós para automatizar edições em lote sem programar</h1>
     <div class="autores aparece d5">
       <div class="autor">
         <div class="nome">Nathan Henrique Guimarães de Oliveira</div>
@@ -73,7 +60,7 @@
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:10px">
         <figure class="fig">
-          <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação" style="max-height:250px;object-fit:contain">
+          <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação" style="max-width:100%;max-height:250px">
           <figcaption><b>Imagem de referência do trabalho.</b> Todas as figuras desta apresentação saem dos mesmos nós do FotoFácil, aplicados sobre ela.</figcaption>
         </figure>
         <figure class="fig" style="align-items:center">
@@ -284,7 +271,7 @@
         </div>
       </div>
       <div class="cartao branco" data-teste style="gap:10px">
-        <span class="rotulo">Dois testes reais do projeto: escolha um e veja o código</span>
+        <span class="rotulo">Dois testes reais do projeto</span>
         <div class="chips">
           <button class="chip" aria-selected="true"  data-teste="uniforme">média em imagem uniforme</button>
           <button class="chip" aria-selected="false" data-teste="mediana">mediana contra o ruído sal</button>
@@ -310,11 +297,11 @@
           <span class="etiqueta esq">original</span>
           <span class="etiqueta dir">após equalização</span>
         </div>
-        <span class="mono" style="font-size:11.5px;color:var(--dim)">arraste sobre a imagem para comparar · resultado produzido pelo nó de equalização do FotoFácil</span>
+        <span class="mono" style="font-size:11.5px;color:var(--dim)">resultado produzido pelo nó de equalização do FotoFácil, sobre a foto de exemplo</span>
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
         <figure class="fig">
-          <img src="assets/img/pdi/03-histograma.png" alt="Histograma da imagem" style="max-height:108px;object-fit:contain">
+          <img src="assets/img/pdi/03-histograma.png" alt="Histograma da imagem" style="max-width:100%;max-height:108px">
           <figcaption><b>Histograma</b>: quantos pixels existem em cada nível de intensidade. A equalização redistribui essa distribuição.</figcaption>
         </figure>
         <table class="tabela">
@@ -354,7 +341,7 @@
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
         <div class="cartao branco">
-          <span class="rotulo">O que está por trás dos botões</span>
+          <span class="rotulo">O que esses resultados mostram</span>
           <ul class="lista">
             <li>Bordas não são contorno desenhado: são a <b>variação</b> entre vizinhos.</li>
             <li>A limiarização decide o que é objeto usando o próprio histograma.</li>
@@ -378,15 +365,15 @@
     <div class="grade g21">
       <div class="aparece d2" style="display:flex;flex-direction:column;gap:10px">
         <div class="grade g4">
-          <figure class="fig"><img src="assets/img/pdi/00-original.jpg" alt="Imagem original" style="max-height:104px;object-fit:contain"><figcaption>entrada</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-1.jpg" alt="Variante gerada pela augmentação" style="max-height:104px;object-fit:contain"><figcaption>rotação</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-2.jpg" alt="Variante gerada pela augmentação" style="max-height:104px;object-fit:contain"><figcaption>espelhamento</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-3.jpg" alt="Variante gerada pela augmentação" style="max-height:104px;object-fit:contain"><figcaption>outra variação</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/00-original.jpg" alt="Imagem original" style="max-width:100%;max-height:104px"><figcaption>entrada</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-1.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>rotação</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-2.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>espelhamento</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-3.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>outra variação</figcaption></figure>
         </div>
         <p style="font-size:15.5px">O nó de <b>augmentação</b> gera variantes da mesma imagem para ampliar o conjunto. Ele usa uma <b>semente fixa</b>: quem repetir o fluxo obtém exatamente as mesmas variantes. É a diferença entre dados aumentados e dados aumentados de forma reprodutível.</p>
         <div class="grade g2">
-          <figure class="fig"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg" alt="Imagem com ruído sal e pimenta" style="max-height:104px;object-fit:contain"><figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg" alt="Imagem após o filtro de mediana" style="max-height:104px;object-fit:contain"><figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg" alt="Imagem com ruído sal e pimenta" style="max-width:100%;max-height:104px"><figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg" alt="Imagem após o filtro de mediana" style="max-width:100%;max-height:104px"><figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption></figure>
         </div>
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
@@ -420,12 +407,12 @@
   <h2 class="titulo aparece d1">Objetivo por objetivo, e o que ainda falta</h2>
   <div class="corpo">
     <div class="grade g2 aparece d2">
-      <div class="cartao branco">
+      <div class="cartao branco" style="align-self:start">
         <span class="rotulo">Objetivos respondidos</span>
         <ul class="lista marcada">
-          <li><b>Montar sem código:</b> os nós são ligados por arrastar e soltar e a ordem é calculada pelo sistema.</li>
-          <li><b>Repetir em lote:</b> atingido com ressalva, a execução ainda é <b>sequencial</b>: o ganho vem da repetição, não do paralelismo.</li>
-          <li><b>PDI clássico:</b> 28 nós, de brilho e contraste a Fourier, limiarização e morfologia, todos verificados por teste.</li>
+          <li><b>Montar sem código:</b> nós ligados por arrastar e soltar, com a ordem calculada pelo sistema.</li>
+          <li><b>Repetir em lote:</b> atingido com ressalva, a execução ainda é <b>sequencial</b>, o ganho vem da repetição.</li>
+          <li><b>PDI clássico:</b> 28 nós, de brilho e contraste a Fourier, limiarização e morfologia, todos com teste.</li>
           <li><b>Servir à pesquisa:</b> o conjunto exportado sai dividido em treino, validação e teste.</li>
         </ul>
       </div>
@@ -434,20 +421,16 @@
           <span class="rotulo">Limites conhecidos</span>
           <ul class="lista traco">
             <li><b>O fluxo não é exportável:</b> o desenho fica salvo na máquina, mas ainda não sai como arquivo para outra pessoa abrir.</li>
-            <li><b>A IA do catálogo é heurística:</b> conta e mede área de objeto, não é um modelo treinado.</li>
+            <li><b>GeoTIFF multibanda ainda não é lido:</b> os nós de sensoriamento remoto têm a matemática correta, mas foram validados sobre imagens comuns, não sobre produtos reais de satélite.</li>
             <li><b>Nós de sensoriamento remoto:</b> dependem de imagens com bandas específicas, ainda não validados sobre dados reais de satélite.</li>
             <li><b>Persistência:</b> encontramos um caso em que o fluxo aberto pode ser gravado vazio antes de ser lido do banco; está registrado e é o primeiro item da fila.</li>
           </ul>
         </div>
         <div class="cartao destaque">
           <span class="rotulo">Próximos passos</span>
-          <p style="font-size:15.5px">Corrigir a gravação do fluxo ativo com teste de persistência · processar o lote em paralelo · exportar e importar o fluxo · suavizar a transição dos filtros de frequência.</p>
+          <p style="font-size:15.5px">Ler GeoTIFF multibanda para validar os nós de sensoriamento remoto sobre dados reais · corrigir a gravação do fluxo ativo · processar o lote em paralelo.</p>
         </div>
       </div>
-    </div>
-    <div class="cartao aparece d3" style="flex-direction:row;align-items:center;gap:20px;background:linear-gradient(90deg,var(--lav-soft2) 0%,var(--lav-soft) 100%)">
-      <span class="rotulo" style="white-space:nowrap">A resposta à pergunta do início</span>
-      <p style="font-size:17.5px;color:var(--ink)">Sim: montando o processamento como fluxo, dá para aplicar a mesma edição a milhares de imagens sem programar, e repetir exatamente o mesmo resultado depois.</p>
     </div>
   </div>
 </section>

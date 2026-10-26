@@ -22,10 +22,12 @@
 
   /* ---------- escala: 1280x720 sempre inteiro na janela ------------------- */
   function ajustarEscala() {
-    const margem = 42;
+    // folga maior embaixo: a barra de navegação não encosta no slide
+    const folgaX = 64;
+    const folgaY = 132;
     const escala = Math.min(
-      (window.innerWidth - margem) / LARGURA,
-      (window.innerHeight - margem) / ALTURA
+      (window.innerWidth - folgaX) / LARGURA,
+      (window.innerHeight - folgaY) / ALTURA
     );
     quadro.style.transform = `scale(${escala})`;
   }
@@ -242,7 +244,7 @@
     const pintar = (botao) => {
       const nomes = (botao.dataset.nos || "").split(" · ").filter(Boolean);
       alvo.innerHTML = nomes.map((n) => `<span class="no">${n}</span>`).join("");
-      rotulo.textContent = `${botao.textContent.replace(/\s*\d+$/, "").trim()} · ${nomes.length} ${nomes.length === 1 ? "nó" : "nós"} · clique noutra categoria para ver os nós dela`;
+      rotulo.textContent = `${botao.textContent.replace(/\s*\d+$/, "").trim()} · ${nomes.length} ${nomes.length === 1 ? "nó" : "nós"}`;
     };
     cat.querySelectorAll(".cat").forEach((botao) => {
       botao.addEventListener("click", () => {

@@ -46,10 +46,7 @@ html, body {
   inset: 0;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(1250px 640px at 84% -10%, #ece7fd 0%, rgba(236, 231, 253, 0) 60%),
-    radial-gradient(980px 560px at 6% 110%, #f0ecfe 0%, rgba(240, 236, 254, 0) 56%),
-    linear-gradient(180deg, #fbfaff 0%, #ffffff 55%);
+  background: #f2f0f9;
 }
 
 #quadro { position: relative; width: 1280px; height: 720px; }
@@ -200,13 +197,13 @@ figure.fig img, figure.fig canvas {
 }
 /* figura que precisa caber centralizada na coluna, sem esticar */
 figure.fig.centrada { justify-content: center; height: 100%; }
-figure.fig.centrada img { width: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+figure.fig.centrada img { width: auto; max-width: 100%; max-height: 100%; }
 figure.fig figcaption { font-family: var(--mono); font-size: 11px; line-height: 1.4; color: var(--dim); letter-spacing: .02em; }
 figure.fig figcaption b { color: var(--lav-text); font-weight: 500; }
 .fig-alta img { max-height: 100%; object-fit: contain; }
-.fig-baixa img { max-height: 300px; width: auto; margin: 0 auto; object-fit: contain; }
-.galeria .visor img { max-height: 392px; object-fit: contain; }
-.moldura { border: 1px solid var(--lav-line); border-radius: 12px; padding: 8px; background: #fff; box-shadow: var(--sombra); }
+.fig-baixa img { max-height: 300px; width: auto; max-width: 100%; margin: 0 auto; }
+.galeria .visor img { width: auto; max-width: 100%; max-height: 392px; }
+.moldura { border: 1px solid var(--lav-line); border-radius: 12px; padding: 8px; background: #fff; }
 .moldura img { display: block; width: 100%; border-radius: 7px; }
 
 /* antes/depois (arrastar) */
@@ -236,7 +233,6 @@ figure.fig figcaption b { color: var(--lav-text); font-weight: 500; }
   color: #fff;
   border-radius: 50%;
   font-size: 15px;
-  box-shadow: 0 4px 12px rgba(74, 58, 166, .4);
 }
 .slider .etiqueta {
   position: absolute; bottom: 10px;
@@ -345,22 +341,14 @@ pre.codigo .ok { color: var(--ok); }
 /* ---------- capa ----------------------------------------------------------- */
 .capa { padding: 0; }
 .capa .faixa-topo { display: flex; justify-content: space-between; align-items: center; gap: 30px; padding: 24px 60px 0; }
-.capa .logo-evento { height: 90px; width: auto; display: block; }
+.capa .logo-evento { height: 96px; width: auto; display: block; }
 .capa .apoio { display: flex; align-items: center; gap: 16px; }
 .capa .apoio img { height: 30px; width: auto; display: block; }
 .capa .centro {
-  flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px;
-  padding: 22px 54px; margin: 0 34px;
-  border-radius: 18px;
-  background: linear-gradient(100deg, var(--lav-soft) 0%, rgba(244, 241, 254, .45) 58%, rgba(244, 241, 254, 0) 96%);
+  flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px;
+  padding: 0 60px;
 }
-.capa::after {
-  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 32%;
-  background: linear-gradient(270deg, var(--lav-soft) 0%, rgba(244, 241, 254, 0) 100%);
-  pointer-events: none; z-index: 1;
-}
-.capa .marca-fundo { z-index: 2; }
-.capa h1 { font-size: 41px; max-width: 28ch; }
+.capa h1 { font-size: 46px; max-width: 30ch; color: var(--lav-deep); }
 .capa .sub { font-size: 17.5px; color: var(--soft); max-width: 64ch; }
 .capa .autores { display: flex; gap: 44px; padding-top: 8px; }
 .capa .autor .nome { font-size: 17px; color: var(--ink); font-weight: 500; }
@@ -376,10 +364,7 @@ pre.codigo .ok { color: var(--ok); }
 }
 .capa .rodape span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .capa .rodape .evento { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--lav-text); }
-.capa .marca-fundo {
-  position: absolute; right: 54px; top: 50%; transform: translateY(-50%);
-  width: 318px; opacity: .40; pointer-events: none;
-}
+.capa .marca-fundo { display: none; }
 
 /* ---------- roteiro / sumário --------------------------------------------- */
 .sumario { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
@@ -462,8 +447,8 @@ body.geral #palco { display: none; }
   z-index: 40;
 }
 body.geral #visao { display: grid; }
-#visao .mini { display: block; border: 1px solid var(--lav-line); border-radius: 12px; overflow: hidden; background: #fff; cursor: pointer; box-shadow: none; transition: box-shadow .18s, border-color .18s; }
-#visao .mini:hover { border-color: var(--lav); box-shadow: var(--sombra); }
+#visao .mini { display: block; border: 1px solid var(--lav-line); border-radius: 12px; overflow: hidden; background: #fff; cursor: pointer; transition: border-color .18s; }
+#visao .mini:hover { border-color: var(--lav); }
 #visao .mini .topo { display: flex; width: 100%; gap: 8px; align-items: center; padding: 7px 10px; border-bottom: 1px solid var(--lav-line); font-family: var(--mono); font-size: 10.5px; color: var(--dim); letter-spacing: .06em; }
 #visao .mini .topo b { color: var(--lav-text); font-weight: 500; }
 #visao .mini .quadro { display: block; position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #fff; }
