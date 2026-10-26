@@ -20,6 +20,14 @@
   <symbol id="ic-sol" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1.4v1.8M8 12.8v1.8M1.4 8h1.8M12.8 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M12.6 3.4l-1.3 1.3M4.7 11.3l-1.3 1.3"/></symbol>
   <symbol id="ic-girar" viewBox="0 0 16 16"><path d="M13.2 8a5.2 5.2 0 1 1-1.7-3.9"/><path d="M13.6 2.6v3.3h-3.3"/></symbol>
   <symbol id="ic-brilho" viewBox="0 0 16 16"><path d="M8 2.4l1.5 3.7 3.7 1.5-3.7 1.5L8 12.8 6.5 9.1 2.8 7.6l3.7-1.5z"/></symbol>
+  <symbol id="ic-onda" viewBox="0 0 16 16"><path d="M2 8c1.8-4.2 3.6-4.2 5.4 0s3.6 4.2 5.4 0"/></symbol>
+  <symbol id="ic-malha" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="3" height="3" rx=".8"/><rect x="6.5" y="2.4" width="3" height="3" rx=".8"/><rect x="10.6" y="2.4" width="3" height="3" rx=".8"/><rect x="2.4" y="6.5" width="3" height="3" rx=".8"/><rect x="6.5" y="6.5" width="3" height="3" rx=".8"/><rect x="10.6" y="6.5" width="3" height="3" rx=".8"/><rect x="2.4" y="10.6" width="3" height="3" rx=".8"/><rect x="6.5" y="10.6" width="3" height="3" rx=".8"/><rect x="10.6" y="10.6" width="3" height="3" rx=".8"/></symbol>
+  <symbol id="ic-angulo" viewBox="0 0 16 16"><path d="M3.2 13V3.2h9.8"/><path d="M3.2 13h9.8"/></symbol>
+  <symbol id="ic-pontos" viewBox="0 0 16 16"><rect x="2.6" y="2.6" width="2.8" height="2.8" rx=".8"/><rect x="9" y="6.2" width="2.8" height="2.8" rx=".8"/><rect x="5.4" y="10.4" width="2.8" height="2.8" rx=".8"/><rect x="11.4" y="11.6" width="2.8" height="2.8" rx=".8"/></symbol>
+  <symbol id="ic-recorte" viewBox="0 0 16 16"><path d="M4.6 1.6v11.8M11.4 1.6v11.8M1.6 4.6h11.8M1.6 11.4h11.8"/></symbol>
+  <symbol id="ic-caixa" viewBox="0 0 16 16"><path d="M2.5 5.3 8 2.6l5.5 2.7v5.4L8 13.4l-5.5-2.7z"/><path d="M2.5 5.3 8 8l5.5-2.7M8 8v5.4"/></symbol>
+  <symbol id="ic-chip" viewBox="0 0 16 16"><rect x="4.6" y="4.6" width="6.8" height="6.8" rx="1.4"/><path d="M6.6 1.9v2.7M9.4 1.9v2.7M6.6 11.4v2.7M9.4 11.4v2.7M1.9 6.6h2.7M1.9 9.4h2.7M11.4 6.6h2.7M11.4 9.4h2.7"/></symbol>
+  <symbol id="ic-pilha" viewBox="0 0 16 16"><rect x="2.6" y="3.2" width="10.8" height="3.1" rx="1"/><rect x="2.6" y="7.5" width="10.8" height="3.1" rx="1"/></symbol>
 </svg>
 
 
@@ -294,13 +302,13 @@
     <div class="grade g21">
       <div class="aparece d2" style="display:flex;flex-direction:column;gap:12px">
         <div class="slider" id="slider-eq">
-          <img src="assets/img/pdi/00-original.jpg" alt="Imagem original">
-          <div class="depois"><img src="assets/img/pdi/02-equalizada.jpg" alt="Imagem após a equalização"></div>
+          <img src="assets/img/pdi/01-cinza.jpg" alt="Imagem em escala de cinza">
+          <div class="depois"><img src="assets/img/pdi/02-equalizada.jpg" alt="Imagem depois da escala de cinza e da equalização"></div>
           <div class="pino"></div>
           <span class="etiqueta esq">escala de cinza</span>
           <span class="etiqueta dir">cinza + equalização</span>
         </div>
-        <span class="mono" style="font-size:11.5px;color:var(--dim)">os dois nós aplicados nesta ordem: escala de cinza e, depois, equalização de histograma</span>
+        <span class="mono" style="font-size:11.5px;color:var(--dim)">dois nós em sequência: escala de cinza e, depois, equalização de histograma. A comparação isola o efeito da equalização, porque as duas metades já estão em cinza.</span>
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
         <figure class="fig alta">

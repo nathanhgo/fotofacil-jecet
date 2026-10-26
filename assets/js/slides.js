@@ -246,8 +246,29 @@
       const nomes = (botao.dataset.nos || "").split(" · ").filter(Boolean);
       const icone = botao.dataset.icone || "brilho";
       const cor = botao.dataset.cor || "#4a3aa6";
+      const porNome = [
+        [/color space|cor\b/i, "drop"],
+        [/fourier|fft|frequ/i, "onda"],
+        [/convolu|kernel/i, "malha"],
+        [/borda|sobel|laplac|limiar|threshold/i, "angulo"],
+        [/ru[ií]do|sal e pimenta/i, "pontos"],
+        [/blur|suaviza|mediana|gauss/i, "drop"],
+        [/equaliza|histograma/i, "barras"],
+        [/morfol|dilata|eros/i, "pilha"],
+        [/crop|recorte|resize|rotate|flip|rota/i, "recorte"],
+        [/banda|ndvi|nbr|savi|ndwi|empilha|registro|mudan/i, "camadas"],
+        [/augmenta|normaliza/i, "brilho"],
+        [/export|input|output|sa[íi]da|entrada/i, "caixa"],
+        [/machine|learning|ia\b/i, "chip"],
+        [/brilho|contrast|brightness/i, "sol"],
+        [/estat|matriz|pixel|compara|an[áa]lise/i, "grade"],
+      ];
+      const iconeDe = (nome) => {
+        for (const [re, ic] of porNome) if (re.test(nome)) return ic;
+        return icone;
+      };
       alvo.innerHTML = nomes
-        .map((n) => `<span class="no"><svg aria-hidden="true" style="color:${cor}"><use href="#ic-${icone}"/></svg>${n}</span>`)
+        .map((n) => `<span class="no"><svg aria-hidden="true" style="color:${cor}"><use href="#ic-${iconeDe(n)}"/></svg>${n}</span>`)
         .join("");
       rotulo.textContent = `${botao.textContent.replace(/\s*\d+$/, "").trim()} · ${nomes.length} ${nomes.length === 1 ? "nó" : "nós"}`;
     };
