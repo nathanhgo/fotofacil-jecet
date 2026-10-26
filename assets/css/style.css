@@ -350,7 +350,7 @@ pre.codigo .ok { color: var(--ok); }
 }
 .capa h1 { font-size: 50px; max-width: 44ch; color: var(--lav-deep); }
 .capa .sub { font-size: 17.5px; color: var(--soft); max-width: 64ch; }
-.capa .autores { display: flex; gap: 44px; padding-top: 8px; }
+.capa .autores { display: flex; gap: 44px; padding-top: 8px; justify-content: space-between; }
 .capa .autor .nome { font-size: 18px; color: var(--ink); font-weight: 500; }
 .capa .autor .org { font-size: 14px; color: #37354f; font-family: var(--mono); letter-spacing: .02em; }
 .capa .chaves { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
