@@ -60,11 +60,11 @@
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:10px">
         <figure class="fig">
-          <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação" style="max-width:100%;max-height:250px">
+          <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação">
           <figcaption><b>Imagem de referência do trabalho.</b> Todas as figuras desta apresentação saem dos mesmos nós do FotoFácil, aplicados sobre ela.</figcaption>
         </figure>
         <figure class="fig" style="align-items:center">
-          <img src="assets/img/pdi/14-matriz-de-pixels.png" alt="Recorte ampliado mostrando os valores de intensidade de cada pixel" style="width:auto;max-height:112px">
+          <img src="assets/img/pdi/14-matriz-de-pixels.png" alt="Recorte ampliado mostrando os valores de intensidade de cada pixel">
           <figcaption><b>A imagem por dentro.</b> Recorte ampliado com os números que o programa realmente lê.</figcaption>
         </figure>
       </div>
@@ -98,7 +98,7 @@
         <p style="margin-top:auto;font-size:15.5px;color:var(--ink)"><b>A lacuna:</b> automação visual, que já provou funcionar em outras áreas, não chegou ao processamento de imagens.</p>
       </div>
     </div>
-    <div class="cartao aparece d3" style="flex-direction:row;align-items:center;gap:22px;background:linear-gradient(90deg,var(--lav-soft2) 0%,var(--lav-soft) 100%)">
+    <div class="cartao aparece d3" style="flex-direction:row;align-items:center;gap:22px;background:var(--lav-soft)">
       <span class="rotulo" style="white-space:nowrap">A proposta</span>
       <p style="font-size:17px;color:var(--ink)">Montar o processamento como um <b>fluxo de blocos conectados</b>: cada bloco é uma operação conhecida de processamento digital de imagens e a ligação entre eles define a ordem. O mesmo desenho roda em uma imagem ou em milhares.</p>
     </div>
@@ -301,7 +301,7 @@
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
         <figure class="fig">
-          <img src="assets/img/pdi/03-histograma.png" alt="Histograma da imagem" style="max-width:100%;max-height:108px">
+          <img src="assets/img/pdi/03-histograma.png" alt="Histograma da imagem">
           <figcaption><b>Histograma</b>: quantos pixels existem em cada nível de intensidade. A equalização redistribui essa distribuição.</figcaption>
         </figure>
         <table class="tabela">
@@ -364,16 +364,15 @@
   <div class="corpo">
     <div class="grade g21">
       <div class="aparece d2" style="display:flex;flex-direction:column;gap:10px">
-        <div class="grade g4">
-          <figure class="fig"><img src="assets/img/pdi/00-original.jpg" alt="Imagem original" style="max-width:100%;max-height:104px"><figcaption>entrada</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-1.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>rotação</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-2.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>espelhamento</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/20-augmentada-3.jpg" alt="Variante gerada pela augmentação" style="max-width:100%;max-height:104px"><figcaption>outra variação</figcaption></figure>
+        <div class="grade g3">
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-1.jpg" alt="Variante gerada pela augmentação"><figcaption>rotação</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-2.jpg" alt="Variante gerada pela augmentação"><figcaption>espelhamento</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/20-augmentada-3.jpg" alt="Variante gerada pela augmentação"><figcaption>outra variação</figcaption></figure>
         </div>
         <p style="font-size:15.5px">O nó de <b>augmentação</b> gera variantes da mesma imagem para ampliar o conjunto. Ele usa uma <b>semente fixa</b>: quem repetir o fluxo obtém exatamente as mesmas variantes. É a diferença entre dados aumentados e dados aumentados de forma reprodutível.</p>
         <div class="grade g2">
-          <figure class="fig"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg" alt="Imagem com ruído sal e pimenta" style="max-width:100%;max-height:104px"><figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption></figure>
-          <figure class="fig"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg" alt="Imagem após o filtro de mediana" style="max-width:100%;max-height:104px"><figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg" alt="Imagem com ruído sal e pimenta"><figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption></figure>
+          <figure class="fig"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg" alt="Imagem após o filtro de mediana"><figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption></figure>
         </div>
       </div>
       <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
