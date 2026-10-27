@@ -1,386 +1,574 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FotoFácil: um editor de imagens por nós para automatizar edições em lote sem programar</title>
-<meta name="description" content="Apresentação do FotoFácil no JECET 2026 (IFSP Campus Jacareí): editor de imagens por nós para automatizar edições em lote sem programar.">
-<link rel="stylesheet" href="assets/fontes.css">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FotoFácil: um editor de imagens por nós para automatizar edições em lote sem programar</title>
+  <meta name="description"
+    content="Apresentação do FotoFácil no JECET 2026 (IFSP Campus Jacareí): editor de imagens por nós para automatizar edições em lote sem programar.">
+  <link rel="stylesheet" href="assets/fontes.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<div id="progresso" role="presentation"><span class="valor"></span></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="ic-drop" viewBox="0 0 16 16"><path d="M8 2.5s-4.2 4.4-4.2 7a4.2 4.2 0 0 0 8.4 0c0-2.6-4.2-7-4.2-7z"/></symbol>
-  <symbol id="ic-camadas" viewBox="0 0 16 16"><path d="M8 2.6 2.6 5.5 8 8.4l5.4-2.9z"/><path d="M2.6 9.2 8 12.1l5.4-2.9"/></symbol>
-  <symbol id="ic-barras" viewBox="0 0 16 16"><path d="M2.5 13.4h11"/><path d="M4.6 13.4V8.2M8 13.4V4.6M11.4 13.4v-4"/></symbol>
-  <symbol id="ic-grade" viewBox="0 0 16 16"><rect x="2.9" y="2.9" width="4.6" height="4.6" rx="1"/><rect x="8.5" y="2.9" width="4.6" height="4.6" rx="1"/><rect x="2.9" y="8.5" width="4.6" height="4.6" rx="1"/><rect x="8.5" y="8.5" width="4.6" height="4.6" rx="1"/></symbol>
-  <symbol id="ic-porta" viewBox="0 0 16 16"><path d="M2.6 3.4h4.8v9.2H2.6z"/><path d="M7.4 8h6"/><path d="M11 5.6 13.4 8 11 10.4"/></symbol>
-  <symbol id="ic-sol" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1.4v1.8M8 12.8v1.8M1.4 8h1.8M12.8 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M12.6 3.4l-1.3 1.3M4.7 11.3l-1.3 1.3"/></symbol>
-  <symbol id="ic-girar" viewBox="0 0 16 16"><path d="M13.2 8a5.2 5.2 0 1 1-1.7-3.9"/><path d="M13.6 2.6v3.3h-3.3"/></symbol>
-  <symbol id="ic-brilho" viewBox="0 0 16 16"><path d="M8 2.4l1.5 3.7 3.7 1.5-3.7 1.5L8 12.8 6.5 9.1 2.8 7.6l3.7-1.5z"/></symbol>
-  <symbol id="ic-onda" viewBox="0 0 16 16"><path d="M2 8c1.8-4.2 3.6-4.2 5.4 0s3.6 4.2 5.4 0"/></symbol>
-  <symbol id="ic-malha" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="3" height="3" rx=".8"/><rect x="6.5" y="2.4" width="3" height="3" rx=".8"/><rect x="10.6" y="2.4" width="3" height="3" rx=".8"/><rect x="2.4" y="6.5" width="3" height="3" rx=".8"/><rect x="6.5" y="6.5" width="3" height="3" rx=".8"/><rect x="10.6" y="6.5" width="3" height="3" rx=".8"/><rect x="2.4" y="10.6" width="3" height="3" rx=".8"/><rect x="6.5" y="10.6" width="3" height="3" rx=".8"/><rect x="10.6" y="10.6" width="3" height="3" rx=".8"/></symbol>
-  <symbol id="ic-angulo" viewBox="0 0 16 16"><path d="M3.2 13V3.2h9.8"/><path d="M3.2 13h9.8"/></symbol>
-  <symbol id="ic-pontos" viewBox="0 0 16 16"><rect x="2.6" y="2.6" width="2.8" height="2.8" rx=".8"/><rect x="9" y="6.2" width="2.8" height="2.8" rx=".8"/><rect x="5.4" y="10.4" width="2.8" height="2.8" rx=".8"/><rect x="11.4" y="11.6" width="2.8" height="2.8" rx=".8"/></symbol>
-  <symbol id="ic-recorte" viewBox="0 0 16 16"><path d="M4.6 1.6v11.8M11.4 1.6v11.8M1.6 4.6h11.8M1.6 11.4h11.8"/></symbol>
-  <symbol id="ic-caixa" viewBox="0 0 16 16"><path d="M2.5 5.3 8 2.6l5.5 2.7v5.4L8 13.4l-5.5-2.7z"/><path d="M2.5 5.3 8 8l5.5-2.7M8 8v5.4"/></symbol>
-  <symbol id="ic-chip" viewBox="0 0 16 16"><rect x="4.6" y="4.6" width="6.8" height="6.8" rx="1.4"/><path d="M6.6 1.9v2.7M9.4 1.9v2.7M6.6 11.4v2.7M9.4 11.4v2.7M1.9 6.6h2.7M1.9 9.4h2.7M11.4 6.6h2.7M11.4 9.4h2.7"/></symbol>
-  <symbol id="ic-pilha" viewBox="0 0 16 16"><rect x="2.6" y="3.2" width="10.8" height="3.1" rx="1"/><rect x="2.6" y="7.5" width="10.8" height="3.1" rx="1"/></symbol>
-</svg>
+  <div id="progresso" role="presentation"><span class="valor"></span></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ic-drop" viewBox="0 0 16 16">
+      <path d="M8 2.5s-4.2 4.4-4.2 7a4.2 4.2 0 0 0 8.4 0c0-2.6-4.2-7-4.2-7z" />
+    </symbol>
+    <symbol id="ic-camadas" viewBox="0 0 16 16">
+      <path d="M8 2.6 2.6 5.5 8 8.4l5.4-2.9z" />
+      <path d="M2.6 9.2 8 12.1l5.4-2.9" />
+    </symbol>
+    <symbol id="ic-barras" viewBox="0 0 16 16">
+      <path d="M2.5 13.4h11" />
+      <path d="M4.6 13.4V8.2M8 13.4V4.6M11.4 13.4v-4" />
+    </symbol>
+    <symbol id="ic-grade" viewBox="0 0 16 16">
+      <rect x="2.9" y="2.9" width="4.6" height="4.6" rx="1" />
+      <rect x="8.5" y="2.9" width="4.6" height="4.6" rx="1" />
+      <rect x="2.9" y="8.5" width="4.6" height="4.6" rx="1" />
+      <rect x="8.5" y="8.5" width="4.6" height="4.6" rx="1" />
+    </symbol>
+    <symbol id="ic-porta" viewBox="0 0 16 16">
+      <path d="M2.6 3.4h4.8v9.2H2.6z" />
+      <path d="M7.4 8h6" />
+      <path d="M11 5.6 13.4 8 11 10.4" />
+    </symbol>
+    <symbol id="ic-sol" viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="3" />
+      <path
+        d="M8 1.4v1.8M8 12.8v1.8M1.4 8h1.8M12.8 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M12.6 3.4l-1.3 1.3M4.7 11.3l-1.3 1.3" />
+    </symbol>
+    <symbol id="ic-girar" viewBox="0 0 16 16">
+      <path d="M13.2 8a5.2 5.2 0 1 1-1.7-3.9" />
+      <path d="M13.6 2.6v3.3h-3.3" />
+    </symbol>
+    <symbol id="ic-brilho" viewBox="0 0 16 16">
+      <path d="M8 2.4l1.5 3.7 3.7 1.5-3.7 1.5L8 12.8 6.5 9.1 2.8 7.6l3.7-1.5z" />
+    </symbol>
+    <symbol id="ic-onda" viewBox="0 0 16 16">
+      <path d="M2 8c1.8-4.2 3.6-4.2 5.4 0s3.6 4.2 5.4 0" />
+    </symbol>
+    <symbol id="ic-malha" viewBox="0 0 16 16">
+      <rect x="2.4" y="2.4" width="3" height="3" rx=".8" />
+      <rect x="6.5" y="2.4" width="3" height="3" rx=".8" />
+      <rect x="10.6" y="2.4" width="3" height="3" rx=".8" />
+      <rect x="2.4" y="6.5" width="3" height="3" rx=".8" />
+      <rect x="6.5" y="6.5" width="3" height="3" rx=".8" />
+      <rect x="10.6" y="6.5" width="3" height="3" rx=".8" />
+      <rect x="2.4" y="10.6" width="3" height="3" rx=".8" />
+      <rect x="6.5" y="10.6" width="3" height="3" rx=".8" />
+      <rect x="10.6" y="10.6" width="3" height="3" rx=".8" />
+    </symbol>
+    <symbol id="ic-angulo" viewBox="0 0 16 16">
+      <path d="M3.2 13V3.2h9.8" />
+      <path d="M3.2 13h9.8" />
+    </symbol>
+    <symbol id="ic-pontos" viewBox="0 0 16 16">
+      <rect x="2.6" y="2.6" width="2.8" height="2.8" rx=".8" />
+      <rect x="9" y="6.2" width="2.8" height="2.8" rx=".8" />
+      <rect x="5.4" y="10.4" width="2.8" height="2.8" rx=".8" />
+      <rect x="11.4" y="11.6" width="2.8" height="2.8" rx=".8" />
+    </symbol>
+    <symbol id="ic-recorte" viewBox="0 0 16 16">
+      <path d="M4.6 1.6v11.8M11.4 1.6v11.8M1.6 4.6h11.8M1.6 11.4h11.8" />
+    </symbol>
+    <symbol id="ic-caixa" viewBox="0 0 16 16">
+      <path d="M2.5 5.3 8 2.6l5.5 2.7v5.4L8 13.4l-5.5-2.7z" />
+      <path d="M2.5 5.3 8 8l5.5-2.7M8 8v5.4" />
+    </symbol>
+    <symbol id="ic-chip" viewBox="0 0 16 16">
+      <rect x="4.6" y="4.6" width="6.8" height="6.8" rx="1.4" />
+      <path d="M6.6 1.9v2.7M9.4 1.9v2.7M6.6 11.4v2.7M9.4 11.4v2.7M1.9 6.6h2.7M1.9 9.4h2.7M11.4 6.6h2.7M11.4 9.4h2.7" />
+    </symbol>
+    <symbol id="ic-pilha" viewBox="0 0 16 16">
+      <rect x="2.6" y="3.2" width="10.8" height="3.1" rx="1" />
+      <rect x="2.6" y="7.5" width="10.8" height="3.1" rx="1" />
+    </symbol>
+  </svg>
 
 
-<main id="palco">
-<div id="quadro">
+  <main id="palco">
+    <div id="quadro">
 
-<!-- ═══════════════════ 1 · CAPA ═══════════════════ -->
-<section class="slide capa" id="s-capa" data-titulo="Capa" data-secao="Abertura">
-  <div class="faixa-topo">
-    <img class="logo-evento" src="assets/img/logos/jecet-faixa.jpg" alt="JECET 2026 — IFSP Campus Jacareí">
-  </div>
-  <div class="centro">
-    <h1 class="aparece d2">FotoFácil: um editor de imagens por nós para automatizar edições em lote sem programar</h1>
-    <div class="autores aparece d5">
-      <div class="autor">
-        <div class="nome">Nathan Henrique Guimarães de Oliveira</div>
-        <div class="org">IFSP · guimaraes.nathan@aluno.ifsp.edu.br</div>
-      </div>
-      <div class="autor">
-        <div class="nome">Ana Paula Abrantes de Castro Shiguemori</div>
-        <div class="org">IFSP · anapaula.acs@ifsp.edu.br</div>
-      </div>
-    </div>
-  </div>
-  <div class="rodape">
-    <span>Instituto Federal de Educação, Ciência e Tecnologia de São Paulo · Campus Jacareí</span>
-    <span class="evento">JECET 2026</span>
-  </div>
-</section>
-
-<!-- ═══════════════════ 2 · CONTEXTO ═══════════════════ -->
-<section class="slide" id="s-contexto" data-titulo="Contexto" data-secao="Introdução">
-  <header class="faixa"><span class="rotulo">Introdução · contexto e relevância</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Uma imagem digital é uma matriz de números</h2>
-  <div class="corpo">
-    <div class="grade g21">
-      <div class="aparece d2" style="display:flex;flex-direction:column;gap:14px">
-        <p class="lead">Cada valor da matriz é a intensidade de um ponto. Processar imagem é aplicar contas sobre essa matriz: somar brilho, comparar vizinhos, filtrar frequências.</p>
-        <ul class="lista">
-          <li><b>Cotidiano:</b> ajustar uma foto, melhorar um documento escaneado, tratar a imagem de uma câmera.</li>
-          <li><b>Pesquisa:</b> preparar, padronizar e ampliar milhares de imagens antes de treinar um modelo.</li>
-          <li><b>O ponto comum:</b> o ajuste é sempre um <b>algoritmo</b>. Feito à mão, ele se repete e varia; descrito como fluxo, ele se reproduz.</li>
-        </ul>
-        <div class="grade g3" style="margin-top:auto">
-          <div class="cartao destaque"><div class="num-grande">1.100<span style="font-size:20px;font-family:var(--mono)">×785</span></div><div class="num-rotulo">a foto usada nesta apresentação</div></div>
-          <div class="cartao destaque"><div class="num-grande">860 mil</div><div class="num-rotulo">valores de intensidade em uma só imagem</div></div>
-          <div class="cartao destaque"><div class="num-grande">95,3%</div><div class="num-rotulo">dos pixels mudam de valor ao equalizar</div></div>
+      <!-- ═══════════════════ 1 · CAPA ═══════════════════ -->
+      <section class="slide capa" id="s-capa" data-titulo="Capa" data-secao="Abertura">
+        <div class="faixa-topo">
+          <img class="logo-evento" src="assets/img/logos/jecet-faixa.jpg" alt="JECET 2026, IFSP Campus Jacareí">
         </div>
-      </div>
-      <div class="aparece d3" style="display:flex;flex-direction:column;gap:10px">
-        <figure class="fig">
-          <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação">
-          <figcaption><b>Imagem de referência do trabalho.</b> Todas as figuras desta apresentação saem dos mesmos nós do FotoFácil, aplicados sobre ela.</figcaption>
-        </figure>
-        <figure class="fig" style="align-items:center">
-          <img src="assets/img/pdi/14-matriz-de-pixels.png" alt="Recorte ampliado mostrando os valores de intensidade de cada pixel">
-          <figcaption><b>A imagem por dentro.</b> Recorte ampliado com os números que o programa realmente lê.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="centro">
+          <h1 class="aparece d2">FotoFácil: um editor de imagens por nós para automatizar edições em lote sem programar
+          </h1>
+          <div class="autores aparece d5">
+            <div class="autor">
+              <div class="nome">Nathan Henrique Guimarães de Oliveira</div>
+              <div class="org">IFSP · guimaraes.nathan@aluno.ifsp.edu.br</div>
+            </div>
+            <div class="autor">
+              <div class="nome">Ana Paula Abrantes de Castro Shiguemori</div>
+              <div class="org">IFSP · anapaula.acs@ifsp.edu.br</div>
+            </div>
+          </div>
+        </div>
+        <div class="rodape">
+          <span>Instituto Federal de Educação, Ciência e Tecnologia de São Paulo · Campus Jacareí</span>
+          <span class="evento">JECET 2026</span>
+        </div>
+      </section>
 
-<!-- ═══════════════════ 3 · PROBLEMA E JUSTIFICATIVA ═══════════════════ -->
-<section class="slide" id="s-problema" data-titulo="Problema e justificativa" data-secao="Introdução">
-  <header class="faixa"><span class="rotulo">Introdução · problema e justificativa</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Automatizar em lote hoje exige programar</h2>
-  <div class="corpo">
-    <div class="grade g2 aparece d2">
-      <div class="cartao branco">
-        <span class="rotulo">O que já existe</span>
-        <h3>Editores gráficos e ferramentas visuais</h3>
-        <ul class="lista traco">
-          <li><b>GIMP e Photoshop:</b> fazem lote, mas por uma linguagem de script própria: a automação só chega para quem programa.</li>
-          <li><b>n8n:</b> automação visual comprovada, com nós genéricos de dados, sem processamento de imagem nativo.</li>
-          <li><b>Orange:</b> programação visual de mineração de dados, com foco em tabelas e modelos, não em pixels.</li>
-        </ul>
-      </div>
-      <div class="cartao destaque">
-        <span class="rotulo">O que isso custa</span>
-        <h3>Quem não programa faz no braço</h3>
-        <ul class="lista traco">
-          <li>Abrir, ajustar, exportar. Repetir para cada arquivo.</li>
-          <li>O critério muda no meio do caminho e o lote deixa de ser comparável.</li>
-          <li>Na pesquisa, o esforço de preparar o dado compete com o próprio método.</li>
-        </ul>
-        <p style="margin-top:auto;font-size:15.5px;color:var(--ink)"><b>A lacuna:</b> automação visual, que já provou funcionar em outras áreas, não chegou ao processamento de imagens.</p>
-      </div>
-    </div>
-    <div class="cartao aparece d3" style="flex-direction:row;align-items:center;gap:22px;background:var(--lav-soft)">
-      <span class="rotulo" style="white-space:nowrap">A proposta</span>
-      <p style="font-size:17px;color:var(--ink)">Montar o processamento como um <b>fluxo de blocos conectados</b>: cada bloco é uma operação conhecida de processamento digital de imagens e a ligação entre eles define a ordem. O mesmo desenho roda em uma imagem ou em milhares.</p>
-    </div>
-  </div>
-</section>
+      <!-- ═══════════════════ 2 · CONTEXTO ═══════════════════ -->
+      <section class="slide" id="s-contexto" data-titulo="Contexto" data-secao="Introdução">
+        <header class="faixa"><span class="rotulo">Introdução · contexto e relevância</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Uma imagem digital é uma matriz de números</h2>
+        <div class="corpo">
+          <div class="grade g21">
+            <div class="aparece d2" style="display:flex;flex-direction:column;gap:14px">
+              <p class="lead">Cada valor da matriz é a intensidade de um ponto. Processar imagem é aplicar contas sobre
+                essa matriz: somar brilho, comparar vizinhos, filtrar frequências.</p>
+              <ul class="lista">
+                <li><b>Cotidiano:</b> ajustar uma foto, melhorar um documento escaneado, tratar a imagem de uma câmera.
+                </li>
+                <li><b>Pesquisa:</b> preparar, padronizar e ampliar milhares de imagens antes de treinar um modelo.</li>
+                <li><b>O ponto comum:</b> o ajuste é sempre um <b>algoritmo</b>. Feito à mão, ele se repete e varia;
+                  descrito como fluxo, ele se reproduz.</li>
+              </ul>
+              <div class="grade g3" style="margin-top:auto">
+                <div class="cartao destaque">
+                  <div class="num-grande">1.100<span style="font-size:20px;font-family:var(--mono)">×785</span></div>
+                  <div class="num-rotulo">a foto usada nesta apresentação</div>
+                </div>
+                <div class="cartao destaque">
+                  <div class="num-grande">860 mil</div>
+                  <div class="num-rotulo">valores de intensidade em uma só imagem</div>
+                </div>
+                <div class="cartao destaque">
+                  <div class="num-grande">95,3%</div>
+                  <div class="num-rotulo">dos pixels mudam de valor ao equalizar</div>
+                </div>
+              </div>
+            </div>
+            <div class="aparece d3" style="display:flex;flex-direction:column;gap:10px">
+              <figure class="fig">
+                <img src="assets/img/pdi/00-original.jpg" alt="Foto de exemplo usada em toda a apresentação">
+                <figcaption><b>Imagem de referência do trabalho.</b> Todas as figuras desta apresentação saem dos mesmos
+                  nós do FotoFácil, aplicados sobre ela.</figcaption>
+              </figure>
+              <figure class="fig" style="align-items:center">
+                <img src="assets/img/pdi/14-matriz-de-pixels.png"
+                  alt="Recorte ampliado mostrando os valores de intensidade de cada pixel">
+                <figcaption><b>A imagem por dentro.</b> Recorte ampliado com os números que o programa realmente lê.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!-- ═══════════════════ 4 · OBJETIVOS ═══════════════════ -->
-<section class="slide" id="s-objetivos" data-titulo="Objetivos" data-secao="Introdução">
-  <header class="faixa"><span class="rotulo">Introdução · objetivos</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">O que o trabalho se propôs a fazer</h2>
-  <div class="corpo">
-    <div class="cartao destaque aparece d2">
-      <span class="rotulo">Objetivo geral</span>
-      <p style="font-size:19px;color:var(--ink)">Desenvolver um editor de imagens de código aberto em que o processamento é montado visualmente por nós, permitindo aplicar a mesma receita em lotes de imagens sem escrever código.</p>
-    </div>
-    <div class="grade g4 aparece d3">
-      <div class="cartao branco"><span class="rotulo">Objetivo 1</span><h3>Montar sem código</h3><p>Interface de arrastar e soltar que dispensa conhecimento de programação.</p></div>
-      <div class="cartao branco"><span class="rotulo">Objetivo 2</span><h3>Repetir em lote</h3><p>Executar o mesmo fluxo sobre muitos arquivos, com resultado previsível.</p></div>
-      <div class="cartao branco"><span class="rotulo">Objetivo 3</span><h3>Cobrir PDI clássico</h3><p>Do ajuste básico à análise: cor, filtros, bordas, frequência.</p></div>
-      <div class="cartao branco"><span class="rotulo">Objetivo 4</span><h3>Servir à pesquisa</h3><p>Preparar conjuntos de imagens para treinar modelos de IA.</p></div>
-    </div>
-    <div class="grade g5 aparece d4" style="align-items:center">
-      <div><span class="num-rotulo">Palavras-chave</span></div>
-      <span class="chip">processamento de imagens</span><span class="chip">programação visual</span><span class="chip">automação em lote</span><span class="chip">arquitetura de software</span>
-    </div>
-  </div>
-</section>
+      <!-- ═══════════════════ 3 · PROBLEMA E JUSTIFICATIVA ═══════════════════ -->
+      <section class="slide" id="s-problema" data-titulo="Problema e justificativa" data-secao="Introdução">
+        <header class="faixa"><span class="rotulo">Introdução · problema e justificativa</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Automatizar em lote hoje exige programar</h2>
+        <div class="corpo">
+          <div class="grade g2 aparece d2">
+            <div class="cartao branco">
+              <span class="rotulo">O que já existe</span>
+              <h3>Editores gráficos e ferramentas visuais</h3>
+              <ul class="lista traco">
+                <li><b>GIMP e Photoshop:</b> fazem lote, mas por uma linguagem de script própria: a automação só chega
+                  para quem programa.</li>
+                <li><b>n8n:</b> automação visual comprovada, com nós genéricos de dados, sem processamento de imagem
+                  nativo.</li>
+                <li><b>Orange:</b> programação visual de mineração de dados, com foco em tabelas e modelos, não em
+                  pixels.</li>
+              </ul>
+            </div>
+            <div class="cartao destaque">
+              <span class="rotulo">O que isso custa</span>
+              <h3>Quem não programa faz no braço</h3>
+              <ul class="lista traco">
+                <li>O processo repetitivo de abrir, ajustar e salvar fotos.</li>
+                <li>O critério muda no meio do caminho e o lote deixa de ser comparável.</li>
+                <li>Na pesquisa, o esforço de preparar o dado compete com o próprio método.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cartao aparece d3"
+            style="flex-direction:row;align-items:center;gap:22px;background:var(--lav-soft)">
+            <span class="rotulo" style="white-space:nowrap">A proposta</span>
+            <p style="font-size:17px;color:var(--ink)">Montar o processamento como um <b>fluxo de blocos conectados</b>:
+              cada bloco é uma operação conhecida de processamento digital de imagens e a ligação entre eles define a
+              ordem. O mesmo desenho roda em uma imagem ou em milhares.</p>
+          </div>
+        </div>
+      </section>
 
-<!-- ═══════════════════ 5 · METODOLOGIA · GRAFO ═══════════════════ -->
-<section class="slide" id="s-dag" data-titulo="Fluxo como grafo" data-secao="Metodologia">
-  <header class="faixa"><span class="rotulo">Metodologia · modelo do processamento</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">O desenho é a receita; o sistema calcula a ordem</h2>
-  <div class="corpo">
-    <p class="lead aparece d2">Cada nó declara de quais nós depende. Com isso o backend monta um <b>grafo acíclico dirigido</b>, resolve a ordem com uma ordenação topológica e executa cada operação uma única vez, reaproveitando resultados que duas ramificações compartilham.</p>
-    <svg class="diagrama aparece d3" viewBox="0 0 1120 268" role="img" aria-label="Exemplo de fluxo em grafo acíclico dirigido">
-      <defs>
-        <marker id="ponta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,1 L10,5 L0,9 z" fill="#a795ec"/>
-        </marker>
-      </defs>
-      <!-- trilha animada: desenhada antes das caixas, aparece só nos vãos -->
-      <path class="fluxo" d="M90 57 H 1010" />
-      <!-- cadeia principal -->
-      <rect class="cx-lav" x="16"  y="30" width="150" height="54" rx="10"/>
-      <text x="91"  y="62" text-anchor="middle">Entrada</text>
-      <rect class="cx" x="190" y="30" width="150" height="54" rx="10"/>
-      <text x="265" y="62" text-anchor="middle">Escala de cinza</text>
-      <rect class="cx" x="364" y="30" width="150" height="54" rx="10"/>
-      <text x="439" y="62" text-anchor="middle">Equalização</text>
-      <rect class="cx" x="538" y="30" width="150" height="54" rx="10"/>
-      <text x="613" y="62" text-anchor="middle">Detecção de bordas</text>
-      <rect class="cx" x="712" y="30" width="150" height="54" rx="10"/>
-      <text x="787" y="62" text-anchor="middle">Limiarização</text>
-      <rect class="cx-lav" x="910" y="30" width="150" height="54" rx="10"/>
-      <text x="985" y="62" text-anchor="middle">Saída</text>
-      <g class="seta">
-        <path d="M166 57 H 186" marker-end="url(#ponta)"/>
-        <path d="M340 57 H 360" marker-end="url(#ponta)"/>
-        <path d="M514 57 H 534" marker-end="url(#ponta)"/>
-        <path d="M688 57 H 708" marker-end="url(#ponta)"/>
-        <path d="M862 57 H 906" marker-end="url(#ponta)"/>
-      </g>
-      <!-- ramificação: desce da Escala de cinza, à esquerda da caixa de baixo -->
-      <path class="seta" d="M228 84 V 176 H 556" marker-end="url(#ponta)"/>
-      <rect class="cx" x="560" y="150" width="168" height="54" rx="10"/>
-      <text x="644" y="182" text-anchor="middle">Matriz de pixels</text>
-      <!-- a saída recebendo de dois nós -->
-      <path class="seta" d="M728 177 H 985 V 90" marker-end="url(#ponta)"/>
-      <text class="rot" x="16" y="222">um nó alimenta as duas operações abaixo dele</text>
-      <text class="rot" x="742" y="238">a saída recebe de dois nós ao mesmo tempo</text>
-    </svg>
-    <div class="grade g3 aparece d4">
-      <div class="cartao branco"><span class="rotulo">Regra 1</span><p>Cada operação roda <b>uma vez</b>, mesmo que dois caminhos precisem dela.</p></div>
-      <div class="cartao branco"><span class="rotulo">Regra 2</span><p>A ordem sai do próprio desenho: quem depende vai depois.</p></div>
-      <div class="cartao branco"><span class="rotulo">Regra 3</span><p>Um ciclo (A depende de B que depende de A) é recusado antes de executar.</p></div>
-    </div>
-  </div>
-</section>
+      <!-- ═══════════════════ 4 · OBJETIVOS ═══════════════════ -->
+      <section class="slide" id="s-objetivos" data-titulo="Objetivos" data-secao="Introdução">
+        <header class="faixa"><span class="rotulo">Introdução · objetivos</span><span class="faixa-evento">JECET 2026 ·
+            FotoFácil</span></header>
+        <h2 class="titulo aparece d1">O que o trabalho se propôs a fazer</h2>
+        <div class="corpo">
+          <div class="cartao destaque aparece d2">
+            <span class="rotulo">Objetivo geral</span>
+            <p style="font-size:19px;color:var(--ink)">Desenvolver um editor de imagens de código aberto em que o
+              processamento é montado visualmente por nós, permitindo aplicar a mesma receita em lotes de imagens sem
+              escrever código.</p>
+          </div>
+          <div class="grade g4 aparece d3">
+            <div class="cartao branco"><span class="rotulo">Objetivo 1</span>
+              <h3>Montar sem código</h3>
+              <p>Interface de arrastar e soltar que dispensa conhecimento de programação.</p>
+            </div>
+            <div class="cartao branco"><span class="rotulo">Objetivo 2</span>
+              <h3>Repetir em lote</h3>
+              <p>Executar o mesmo fluxo sobre muitos arquivos, com resultado previsível.</p>
+            </div>
+            <div class="cartao branco"><span class="rotulo">Objetivo 3</span>
+              <h3>Cobrir PDI clássico</h3>
+              <p>Do ajuste básico à análise: cor, filtros, bordas, frequência.</p>
+            </div>
+            <div class="cartao branco"><span class="rotulo">Objetivo 4</span>
+              <h3>Servir à pesquisa</h3>
+              <p>Preparar conjuntos de imagens para treinar modelos de IA.</p>
+            </div>
+          </div>
+          <div class="grade g5 aparece d4" style="align-items:center">
+            <div><span class="num-rotulo">Palavras-chave</span></div>
+            <span class="chip">processamento de imagens</span><span class="chip">programação visual</span><span
+              class="chip">automação em lote</span><span class="chip">arquitetura de software</span>
+          </div>
+        </div>
+      </section>
 
-<!-- ═══════════════════ 6 · METODOLOGIA · ARQUITETURA ═══════════════════ -->
-<section class="slide" id="s-arquitetura" data-titulo="Arquitetura" data-secao="Metodologia">
-  <header class="faixa"><span class="rotulo">Metodologia · arquitetura</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Duas camadas, conversando em tempo real</h2>
-  <div class="corpo">
-    <div class="grade g12" style="flex:1;grid-template-columns:1.75fr 1fr">
-      <div class="aparece d2" style="display:flex;flex-direction:column;gap:14px">
-        <svg class="diagrama" viewBox="0 0 470 262" role="img" aria-label="Diagrama de arquitetura em duas camadas">
-          <defs>
-            <marker id="ponta2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,1 L10,5 L0,9 z" fill="#a795ec"/>
-            </marker>
-          </defs>
-          <rect class="cx-lav" x="8" y="8" width="454" height="104" rx="14"/>
-          <text class="rot" x="26" y="32">CAMADA 1 · INTERFACE</text>
-          <text x="26" y="60" fill="#191831">Electron + React + TypeScript</text>
-          <text x="26" y="84" font-size="12.5">arrastar e soltar, painel de parâmetros, prévia do resultado</text>
-          <rect class="cx" x="8" y="150" width="454" height="104" rx="14"/>
-          <text class="rot" x="26" y="174">CAMADA 2 · NÚCLEO</text>
-          <text x="26" y="202" fill="#191831">Go</text>
-          <text x="26" y="226" font-size="12.5">grafo, ordenação, execução do lote, persistência em SQLite</text>
-          <path class="seta" d="M210 112 V 150" marker-end="url(#ponta2)"/>
-          <path class="seta" d="M262 150 V 112" marker-end="url(#ponta2)"/>
-          <text class="rot" x="236" y="136" text-anchor="middle">WebSocket</text>
-        </svg>
-        <div class="grade g3">
-          <div class="cartao branco"><span class="rotulo">Sem nuvem</span><p>Roda na máquina do usuário. Nenhuma imagem sai do computador.</p></div>
-          <div class="cartao branco"><span class="rotulo">Prévia viva</span><p>Cada mudança no fluxo devolve uma imagem de conferência.</p></div>
-          <div class="cartao branco"><span class="rotulo">Fluxos salvos</span><p>O desenho fica guardado e pode ser reaberto.</p></div>
+      <!-- ═══════════════════ 5 · METODOLOGIA · GRAFO ═══════════════════ -->
+      <section class="slide" id="s-dag" data-titulo="Fluxo como grafo" data-secao="Metodologia">
+        <header class="faixa"><span class="rotulo">Metodologia · modelo do processamento</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">De um fluxo abstrato a edição de imagem</h2>
+        <div class="corpo">
+          <p class="lead aparece d2">Cada nó declara de quais nós depende. Com isso o backend monta um <b>grafo acíclico
+              dirigido</b>, resolve a ordem com uma ordenação topológica e executa cada operação uma única vez,
+            reaproveitando resultados que duas ramificações compartilham.</p>
+          <svg class="diagrama aparece d3" viewBox="0 0 1120 268" role="img"
+            aria-label="Exemplo de fluxo em grafo acíclico dirigido">
+            <defs>
+              <marker id="ponta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+                orient="auto-start-reverse">
+                <path d="M0,1 L10,5 L0,9 z" fill="#a795ec" />
+              </marker>
+            </defs>
+            <!-- trilha animada: desenhada antes das caixas, aparece só nos vãos -->
+            <path class="fluxo" d="M90 57 H 1010" />
+            <!-- cadeia principal -->
+            <rect class="cx-lav" x="16" y="30" width="150" height="54" rx="10" />
+            <text x="91" y="62" text-anchor="middle">Entrada</text>
+            <rect class="cx" x="190" y="30" width="150" height="54" rx="10" />
+            <text x="265" y="62" text-anchor="middle">Escala de cinza</text>
+            <rect class="cx" x="364" y="30" width="150" height="54" rx="10" />
+            <text x="439" y="62" text-anchor="middle">Equalização</text>
+            <rect class="cx" x="538" y="30" width="150" height="54" rx="10" />
+            <text x="613" y="62" text-anchor="middle">Detecção de bordas</text>
+            <rect class="cx" x="712" y="30" width="150" height="54" rx="10" />
+            <text x="787" y="62" text-anchor="middle">Limiarização</text>
+            <rect class="cx-lav" x="910" y="30" width="150" height="54" rx="10" />
+            <text x="985" y="62" text-anchor="middle">Saída</text>
+            <g class="seta">
+              <path d="M166 57 H 186" marker-end="url(#ponta)" />
+              <path d="M340 57 H 360" marker-end="url(#ponta)" />
+              <path d="M514 57 H 534" marker-end="url(#ponta)" />
+              <path d="M688 57 H 708" marker-end="url(#ponta)" />
+              <path d="M862 57 H 906" marker-end="url(#ponta)" />
+            </g>
+            <!-- ramificação: desce da Escala de cinza, à esquerda da caixa de baixo -->
+            <path class="seta" d="M228 84 V 176 H 556" marker-end="url(#ponta)" />
+            <rect class="cx" x="560" y="150" width="168" height="54" rx="10" />
+            <text x="644" y="182" text-anchor="middle">Matriz de pixels</text>
+            <!-- a saída recebendo de dois nós -->
+            <path class="seta" d="M728 177 H 985 V 90" marker-end="url(#ponta)" />
+            <text class="rot" x="16" y="222">um nó alimenta as duas operações abaixo dele</text>
+            <text class="rot" x="742" y="238">a saída recebe de dois nós ao mesmo tempo</text>
+          </svg>
+          <div class="grade g3 aparece d4">
+            <div class="cartao branco"><span class="rotulo">Regra 1</span>
+              <p>Cada operação roda <b>uma vez</b>, mesmo que dois caminhos precisem dela.</p>
+            </div>
+            <div class="cartao branco"><span class="rotulo">Regra 2</span>
+              <p>A ordem sai do próprio desenho: quem depende vai depois.</p>
+            </div>
+            <div class="cartao branco"><span class="rotulo">Regra 3</span>
+              <p>Um ciclo (A depende de B que depende de A) é recusado antes de executar.</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <figure class="fig centrada aparece d3">
-        <img src="assets/img/app/tema-claro.png" alt="Aplicativo FotoFácil no tema claro, com a biblioteca de nós, o fluxo montado no canvas e o painel de parâmetros do nó selecionado">
-        <figcaption><b>A ferramenta em uso.</b> A biblioteca de nós à esquerda, o fluxo montado no canvas e, à direita, os parâmetros do nó selecionado com a prévia do resultado.</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
+      </section>
 
-<!-- ═══════════════════ 7 · METODOLOGIA · CATÁLOGO ═══════════════════ -->
-<section class="slide" id="s-catalogo" data-titulo="Catálogo de nós" data-secao="Metodologia">
-  <header class="faixa"><span class="rotulo">Metodologia · catálogo</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">28 tipos de nó, em 8 categorias</h2>
-  <div class="corpo">
-    <div class="catalogo aparece d2" data-catalogo>
-      <div class="lista-cat" role="tablist">
-        <button class="cat" aria-selected="true"  data-cor="#22d3ee" data-icone="drop" data-nos="Convolução · Equalização de Histograma · Detecção de Bordas · Operações Morfológicas · Blur/Suavização · Ruído · Limiarização · FFT">Filtros &amp; Realce<span class="ponto" style="background:#22d3ee"></span><span class="qtd">8</span></button>
-        <button class="cat" aria-selected="false" data-cor="#22c55e" data-icone="camadas" data-nos="Detecção de Mudanças · Empilhamento de Imagens · Registro de Imagens · Composição de Bandas · Álgebra de Bandas (NDVI) · Pan-sharpening">Sensoriamento Remoto<span class="ponto" style="background:#22c55e"></span><span class="qtd">6</span></button>
-        <button class="cat" aria-selected="false" data-cor="#fb923c" data-icone="barras" data-nos="Comparação Visual · Histograma · Matriz de Pixels · Estatísticas da Imagem">Visualização &amp; Análise<span class="ponto" style="background:#fb923c"></span><span class="qtd">4</span></button>
-        <button class="cat" aria-selected="false" data-cor="#f59e0b" data-icone="grade" data-nos="Normalização · Augmentação de Dados · Exportação Rotulada">Dataset / ML<span class="ponto" style="background:#f59e0b"></span><span class="qtd">3</span></button>
-        <button class="cat" aria-selected="false" data-cor="#38bdf8" data-icone="porta" data-nos="Image Input · Image Output">Entrada/Saída<span class="ponto" style="background:#38bdf8"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#eab308" data-icone="sol" data-nos="Brightness &amp; Contrast · Color Space">Ajustes Básicos<span class="ponto" style="background:#eab308"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#a855f7" data-icone="girar" data-nos="Crop/Resize · Rotate/Flip">Transformação<span class="ponto" style="background:#a855f7"></span><span class="qtd">2</span></button>
-        <button class="cat" aria-selected="false" data-cor="#ec4899" data-icone="brilho" data-nos="IA/Machine Learning">Inteligência Artificial<span class="ponto" style="background:#ec4899"></span><span class="qtd">1</span></button>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
-        <span class="rotulo" id="cat-rotulo">Filtros &amp; Realce · 8 nós</span>
-        <div class="nos" id="cat-nos"></div>
-      </div>
-    </div>
-  </div>
-</section>
+      <!-- ═══════════════════ 6 · METODOLOGIA · ARQUITETURA ═══════════════════ -->
+      <section class="slide" id="s-arquitetura" data-titulo="Arquitetura" data-secao="Metodologia">
+        <header class="faixa"><span class="rotulo">Metodologia · arquitetura</span><span class="faixa-evento">JECET 2026
+            · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Duas camadas, conversando em tempo real</h2>
+        <div class="corpo">
+          <div class="grade g12" style="flex:1;grid-template-columns:1.75fr 1fr">
+            <div class="aparece d2" style="display:flex;flex-direction:column;gap:14px">
+              <svg class="diagrama" viewBox="0 0 470 262" role="img"
+                aria-label="Diagrama de arquitetura em duas camadas">
+                <defs>
+                  <marker id="ponta2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+                    orient="auto-start-reverse">
+                    <path d="M0,1 L10,5 L0,9 z" fill="#a795ec" />
+                  </marker>
+                </defs>
+                <rect class="cx-lav" x="8" y="8" width="454" height="104" rx="14" />
+                <text class="rot" x="26" y="32">CAMADA 1 · INTERFACE</text>
+                <text x="26" y="60" fill="#191831">Electron + React + TypeScript</text>
+                <text x="26" y="84" font-size="12.5">arrastar e soltar, painel de parâmetros, prévia do resultado</text>
+                <rect class="cx" x="8" y="150" width="454" height="104" rx="14" />
+                <text class="rot" x="26" y="174">CAMADA 2 · NÚCLEO</text>
+                <text x="26" y="202" fill="#191831">Go</text>
+                <text x="26" y="226" font-size="12.5">grafo, ordenação, execução do lote, persistência em SQLite</text>
+                <path class="seta" d="M210 112 V 150" marker-end="url(#ponta2)" />
+                <path class="seta" d="M262 150 V 112" marker-end="url(#ponta2)" />
+                <text class="rot" x="236" y="136" text-anchor="middle">WebSocket</text>
+              </svg>
+              <div class="grade g3">
+                <div class="cartao branco"><span class="rotulo">Sem nuvem</span>
+                  <p>Roda na máquina do usuário. Nenhuma imagem sai do computador.</p>
+                </div>
+                <div class="cartao branco"><span class="rotulo">Prévia viva</span>
+                  <p>Cada mudança no fluxo devolve uma imagem de conferência.</p>
+                </div>
+                <div class="cartao branco"><span class="rotulo">Fluxos salvos</span>
+                  <p>O desenho fica guardado e pode ser reaberto.</p>
+                </div>
+              </div>
+            </div>
+            <figure class="fig centrada aparece d3">
+              <img src="assets/img/app/tema-claro.png"
+                alt="Aplicativo FotoFácil no tema claro, com a biblioteca de nós, o fluxo montado no canvas e o painel de parâmetros do nó selecionado">
+              <figcaption><b>A ferramenta em uso.</b> A biblioteca de nós à esquerda, o fluxo montado no canvas e, à
+                direita, os parâmetros do nó selecionado com a prévia do resultado.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
 
-<!-- ═══════════════════ 8 · METODOLOGIA · VERIFICAÇÃO ═══════════════════ -->
-<section class="slide" id="s-testes" data-titulo="Verificação por pixel" data-secao="Metodologia">
-  <header class="faixa"><span class="rotulo">Metodologia · verificação</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Antes de codar, o resultado esperado</h2>
-  <div class="corpo">
-    <div class="grade g2 aparece d2">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="cartao branco">
-          <span class="rotulo">Desenvolvimento orientado a testes</span>
-          <p>Para cada operação o teste vem primeiro: ele monta uma matriz conhecida, aplica o nó e compara <b>pixel a pixel</b> com o resultado esperado. Só então a implementação é escrita, até o teste passar.</p>
-          <ul class="lista">
-            <li>Erro de arredondamento, borda ou canal aparece na hora.</li>
-            <li>Mudar um nó sem quebrar outro deixa de depender de memória.</li>
-            <li>É o que permite afirmar que os resultados desta apresentação são os do algoritmo.</li>
-          </ul>
+      <!-- ═══════════════════ 7 · METODOLOGIA · CATÁLOGO ═══════════════════ -->
+      <section class="slide" id="s-catalogo" data-titulo="Catálogo de nós" data-secao="Metodologia">
+        <header class="faixa"><span class="rotulo">Metodologia · catálogo</span><span class="faixa-evento">JECET 2026 ·
+            FotoFácil</span></header>
+        <h2 class="titulo aparece d1">28 tipos de nó, em 8 categorias</h2>
+        <div class="corpo">
+          <div class="catalogo aparece d2" data-catalogo>
+            <div class="lista-cat" role="tablist">
+              <button class="cat" aria-selected="true" data-cor="#22d3ee" data-icone="drop"
+                data-nos="Convolução · Equalização de Histograma · Detecção de Bordas · Operações Morfológicas · Blur/Suavização · Ruído · Limiarização · FFT">Filtros
+                &amp; Realce<span class="ponto" style="background:#22d3ee"></span><span class="qtd">8</span></button>
+              <button class="cat" aria-selected="false" data-cor="#22c55e" data-icone="camadas"
+                data-nos="Detecção de Mudanças · Empilhamento de Imagens · Registro de Imagens · Composição de Bandas · Álgebra de Bandas (NDVI) · Pan-sharpening">Sensoriamento
+                Remoto<span class="ponto" style="background:#22c55e"></span><span class="qtd">6</span></button>
+              <button class="cat" aria-selected="false" data-cor="#fb923c" data-icone="barras"
+                data-nos="Comparação Visual · Histograma · Matriz de Pixels · Estatísticas da Imagem">Visualização &amp;
+                Análise<span class="ponto" style="background:#fb923c"></span><span class="qtd">4</span></button>
+              <button class="cat" aria-selected="false" data-cor="#f59e0b" data-icone="grade"
+                data-nos="Normalização · Augmentação de Dados · Exportação Rotulada">Dataset / ML<span class="ponto"
+                  style="background:#f59e0b"></span><span class="qtd">3</span></button>
+              <button class="cat" aria-selected="false" data-cor="#38bdf8" data-icone="porta"
+                data-nos="Image Input · Image Output">Entrada/Saída<span class="ponto"
+                  style="background:#38bdf8"></span><span class="qtd">2</span></button>
+              <button class="cat" aria-selected="false" data-cor="#eab308" data-icone="sol"
+                data-nos="Brightness &amp; Contrast · Color Space">Ajustes Básicos<span class="ponto"
+                  style="background:#eab308"></span><span class="qtd">2</span></button>
+              <button class="cat" aria-selected="false" data-cor="#a855f7" data-icone="girar"
+                data-nos="Crop/Resize · Rotate/Flip">Transformação<span class="ponto"
+                  style="background:#a855f7"></span><span class="qtd">2</span></button>
+              <button class="cat" aria-selected="false" data-cor="#ec4899" data-icone="brilho"
+                data-nos="IA/Machine Learning">Inteligência Artificial<span class="ponto"
+                  style="background:#ec4899"></span><span class="qtd">1</span></button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
+              <span class="rotulo" id="cat-rotulo">Filtros &amp; Realce · 8 nós</span>
+              <div class="nos" id="cat-nos"></div>
+            </div>
+          </div>
         </div>
-        <div class="grade g2">
-          <div class="cartao destaque"><div class="num-grande">94</div><div class="num-rotulo">testes automatizados no núcleo</div></div>
-          <div class="cartao destaque"><div class="num-grande">28</div><div class="num-rotulo">nós cobertos por verificação</div></div>
-        </div>
-      </div>
-      <div class="cartao branco" data-teste style="gap:10px">
-        <span class="rotulo">Dois testes reais do projeto</span>
-        <div class="chips">
-          <button class="chip" aria-selected="true"  data-teste="uniforme">média em imagem uniforme</button>
-          <button class="chip" aria-selected="false" data-teste="mediana">mediana contra o ruído sal</button>
-        </div>
-        <pre class="codigo" id="codigo-teste"></pre>
-        <p style="font-size:14px;color:var(--soft)">O teste descreve o resultado esperado; a implementação vem depois, até passar. Foi assim para os 28 nós.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
-<!-- ═══════════════════ 9 · RESULTADO 1 · COR E REALCE ═══════════════════ -->
-<section class="slide" id="s-realce" data-titulo="Resultado 1 · cor e realce" data-secao="Resultados">
-  <header class="faixa"><span class="rotulo">Resultados · 1 de 3 · cor e realce</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Escala de cinza e equalização</h2>
-  <div class="corpo">
-    <div class="grade g21">
-      <div class="aparece d2" style="display:flex;flex-direction:column;gap:12px">
-        <div class="slider" id="slider-eq">
-          <img src="assets/img/pdi/01-cinza.jpg" alt="Imagem em escala de cinza">
-          <div class="depois"><img src="assets/img/pdi/02-equalizada.jpg" alt="Imagem depois da escala de cinza e da equalização"></div>
-          <div class="pino"></div>
-          <span class="etiqueta esq">escala de cinza</span>
-          <span class="etiqueta dir">cinza + equalização</span>
+      <!-- ═══════════════════ 8 · METODOLOGIA · VERIFICAÇÃO ═══════════════════ -->
+      <section class="slide" id="s-testes" data-titulo="Verificação por pixel" data-secao="Metodologia">
+        <header class="faixa"><span class="rotulo">Metodologia · verificação</span><span class="faixa-evento">JECET 2026
+            · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">O uso de TDD no desenvolvimento</h2>
+        <div class="corpo">
+          <div class="grade g2 aparece d2">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="cartao branco">
+                <span class="rotulo">Desenvolvimento orientado a testes</span>
+                <p>Para cada operação o teste vem primeiro: ele monta uma matriz conhecida, aplica o nó e compara
+                  <b>pixel a pixel</b> com o resultado esperado. Só então a implementação é escrita, até o teste passar.
+                </p>
+                <ul class="lista">
+                  <li>Erro de arredondamento, borda ou canal aparece na hora.</li>
+                  <li>Mudar um nó sem quebrar outro deixa de ser comum.</li>
+                  <li>Da mais estabilidade ao desenvolvimento.</li>
+                </ul>
+              </div>
+              <div class="grade g2">
+                <div class="cartao destaque">
+                  <div class="num-grande">94</div>
+                  <div class="num-rotulo">testes automatizados no núcleo</div>
+                </div>
+                <div class="cartao destaque">
+                  <div class="num-grande">28</div>
+                  <div class="num-rotulo">nós cobertos por verificação</div>
+                </div>
+              </div>
+            </div>
+            <div class="cartao branco" data-teste style="gap:10px">
+              <span class="rotulo">Dois testes reais do projeto</span>
+              <div class="chips">
+                <button class="chip" aria-selected="true" data-teste="uniforme">média em imagem uniforme</button>
+                <button class="chip" aria-selected="false" data-teste="mediana">mediana contra o ruído sal</button>
+              </div>
+              <pre class="codigo" id="codigo-teste"></pre>
+              <p style="font-size:14px;color:var(--soft)">O teste descreve o resultado esperado; a implementação vem
+                depois, até passar. Foi assim para os 28 nós.</p>
+            </div>
+          </div>
         </div>
-        <span class="mono" style="font-size:11.5px;color:var(--dim)">dois nós em sequência: escala de cinza e, depois, equalização de histograma. A comparação isola o efeito da equalização, porque as duas metades já estão em cinza.</span>
-      </div>
-      <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
-        <figure class="fig alta">
-          <img src="assets/img/pdi/15-histogramas-antes-depois.png" alt="Histogramas da imagem em escala de cinza e depois da equalização">
-          <figcaption><b>Histogramas.</b> À esquerda, a imagem em escala de cinza: os valores se concentram numa faixa estreita. À direita, depois da equalização: eles ocupam toda a escala, e é isso que o contraste ganha.</figcaption>
-        </figure>
-        <p style="font-size:15px">O <b>desvio padrão</b>, que mede o contraste, sai de <b>37,5</b> na escala de cinza e chega a <b>73,4</b> depois da equalização. Uma imagem equalizada usa quase toda a escala de 0 a 255.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
-<!-- ═══════════════════ 10 · RESULTADO 2 · BORDAS ═══════════════════ -->
-<section class="slide" id="s-bordas" data-titulo="Resultado 2 · bordas" data-secao="Resultados">
-  <header class="faixa"><span class="rotulo">Resultados · 2 de 3 · bordas e limiar</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Encontrar contornos e separar o que é objeto</h2>
-  <div class="corpo">
-    <div class="grade g21s">
-      <div class="galeria aparece d2" data-galeria="bordas">
-        <div class="visor">
-          <img id="visor-bordas" src="assets/img/pdi/01-cinza.jpg" alt="Resultado do nó selecionado">
-          <span class="formula" id="formula-bordas">tons de cinza</span>
-          <div class="legenda" id="legenda-bordas">Ponto de partida: a luminância de cada pixel, calculada pelo nó de espaço de cor.</div>
+      <!-- ═══════════════════ 9 · RESULTADO 1 · COR E REALCE ═══════════════════ -->
+      <section class="slide" id="s-realce" data-titulo="Resultado 1 · cor e realce" data-secao="Resultados">
+        <header class="faixa"><span class="rotulo">Resultados · 1 de 3 · cor e realce</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Escala de cinza e equalização</h2>
+        <div class="corpo">
+          <div class="grade g21">
+            <div class="aparece d2" style="display:flex;flex-direction:column;gap:12px">
+              <div class="slider" id="slider-eq">
+                <img src="assets/img/pdi/01-cinza.jpg" alt="Imagem em escala de cinza">
+                <div class="depois"><img src="assets/img/pdi/02-equalizada.jpg"
+                    alt="Imagem depois da escala de cinza e da equalização"></div>
+                <div class="pino"></div>
+                <span class="etiqueta esq">escala de cinza</span>
+                <span class="etiqueta dir">cinza + equalização</span>
+              </div>
+            </div>
+            <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
+              <figure class="fig alta">
+                <img src="assets/img/pdi/15-histogramas-antes-depois.png"
+                  alt="Histogramas da imagem em escala de cinza e depois da equalização">
+                <figcaption><b>Histogramas.</b> À esquerda, a imagem em escala de cinza: os valores se concentram numa
+                  faixa estreita. À direita, depois da equalização: eles ocupam toda a escala, e é isso que o contraste
+                  ganha.</figcaption>
+              </figure>
+              <p style="font-size:15px">O <b>desvio padrão</b>, que mede o contraste, sai de <b>37,5</b> na escala de
+                cinza e chega a <b>73,4</b> depois da equalização. Uma imagem equalizada usa quase toda a escala de 0 a
+                255.</p>
+            </div>
+          </div>
         </div>
-        <div class="chips" role="tablist">
-          <button class="chip" role="tab" aria-selected="true"  data-img="assets/img/pdi/01-cinza.jpg" data-formula="0,299R + 0,587G + 0,114B" data-legenda="Ponto de partida: a luminância de cada pixel, calculada pelo nó de espaço de cor.">escala de cinza</button>
-          <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/04-bordas-sobel.jpg" data-formula="|∇f| ≈ |Gx| + |Gy|" data-legenda="Sobel: compara vizinhos nas direções horizontal e vertical. Bordas ficam claras e áreas uniformes ficam praticamente pretas (75% da área).">detecção de bordas (Sobel)</button>
-          <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/05-bordas-laplaciano.jpg" data-formula="∇²f = soma dos vizinhos − 4·centro" data-legenda="Laplaciano: derivada de segunda ordem. Marca a transição duas vezes, com resultado mais fino e sensível a ruído.">Laplaciano</button>
-          <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/06-otsu.png" data-formula="limiar k que maximiza a variância entre classes" data-legenda="Limiarização de Otsu: o próprio histograma escolhe o corte que melhor separa fundo e objeto (deixou 22,5% da área em branco).">limiarização (Otsu)</button>
-          <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/07-morfologia-dilatacao.png" data-formula="vizinho aceso ⇒ centro aceso" data-legenda="Dilatação 5×5 sobre o resultado do limiar: engrossa as regiões claras (de 22,5% para 25,0% da área) e fecha falhas pequenas.">dilatação 5×5</button>
-        </div>
-      </div>
-      <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
-        <div class="cartao branco">
-          <span class="rotulo">O que esses resultados mostram</span>
-          <ul class="lista">
-            <li>Bordas não são contorno desenhado: são a <b>variação</b> entre vizinhos.</li>
-            <li>A limiarização decide o que é objeto usando o próprio histograma.</li>
-            <li>A morfologia corrige o que a limiarização deixou quebrado.</li>
-          </ul>
-        </div>
-        <div class="cartao destaque">
-          <span class="rotulo">Leitura dos números</span>
-          <p>Sobel deixa <b>75%</b> da área praticamente preta e apenas <b>5,3%</b> dela passa da intensidade 25. Otsu deixa <b>22,5%</b> em branco e a dilatação 5×5 eleva para <b>25,0%</b>. Tudo medido na saída dos próprios nós.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
-<!-- ═══════════════════ 11 · RESULTADO 3 · DADOS PARA IA ═══════════════════ -->
-<section class="slide" id="s-dataset" data-titulo="Resultado 3 · dados para IA" data-secao="Resultados">
-  <header class="faixa"><span class="rotulo">Resultados · 3 de 3 · preparação de dados</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Da pasta de fotos ao conjunto de treino</h2>
-  <div class="corpo">
-    <div class="grade g21">
-      <div class="aparece d2" style="display:flex;flex-direction:column;gap:10px">
-        <div class="grade g3">
-          <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-1.jpg" alt="Variante gerada pela augmentação"><figcaption>rotação</figcaption></figure>
-          <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-2.jpg" alt="Variante gerada pela augmentação"><figcaption>espelhamento</figcaption></figure>
-          <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-3.jpg" alt="Variante gerada pela augmentação"><figcaption>outra variação</figcaption></figure>
+      <!-- ═══════════════════ 10 · RESULTADO 2 · BORDAS ═══════════════════ -->
+      <section class="slide" id="s-bordas" data-titulo="Resultado 2 · bordas" data-secao="Resultados">
+        <header class="faixa"><span class="rotulo">Resultados · 2 de 3 · bordas e limiar</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Encontrar contornos e separar o que é objeto</h2>
+        <div class="corpo">
+          <div class="grade g21s">
+            <div class="galeria aparece d2" data-galeria="bordas">
+              <div class="visor">
+                <img id="visor-bordas" src="assets/img/pdi/01-cinza.jpg" alt="Resultado do nó selecionado">
+                <span class="formula" id="formula-bordas">Escala de cinza</span>
+                <div class="legenda" id="legenda-bordas">Escala de cinza: a luminância de cada pixel, calculada pelo nó
+                  de espaço de cor.</div>
+              </div>
+              <div class="chips" role="tablist">
+                <button class="chip" role="tab" aria-selected="true" data-img="assets/img/pdi/01-cinza.jpg"
+                  data-formula="Escala de cinza"
+                  data-legenda="Ponto de partida: a luminância de cada pixel, calculada pelo nó de espaço de cor.">escala
+                  de cinza</button>
+                <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/04-bordas-sobel.jpg"
+                  data-formula="Deteção de Bordas (Sobel)"
+                  data-legenda="Sobel: compara vizinhos nas direções horizontal e vertical. Bordas ficam claras e áreas uniformes ficam praticamente pretas (75% da área).">detecção
+                  de bordas (Sobel)</button>
+                <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/05-bordas-laplaciano.jpg"
+                  data-formula="Detecção de Bordas (Laplaciano)"
+                  data-legenda="Laplaciano: derivada de segunda ordem. Marca a transição duas vezes, com resultado mais fino e sensível a ruído.">Laplaciano</button>
+                <button class="chip" role="tab" aria-selected="false" data-img="assets/img/pdi/06-otsu.png"
+                  data-formula="Limiarização (Otsu)"
+                  data-legenda="Limiarização de Otsu: o próprio histograma escolhe o corte que melhor separa fundo e objeto (deixou 22,5% da área em branco).">limiarização
+                  (Otsu)</button>
+                <button class="chip" role="tab" aria-selected="false"
+                  data-img="assets/img/pdi/07-morfologia-dilatacao.png" data-formula="Dilatação (5x5)"
+                  data-legenda="Dilatação 5×5 sobre o resultado do limiar: engrossa as regiões claras (de 22,5% para 25,0% da área) e fecha falhas pequenas.">dilatação
+                  5×5</button>
+              </div>
+            </div>
+            <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
+              <div class="cartao branco">
+                <span class="rotulo">Por que isso importa</span>
+                <p style="font-size:15.5px">Separar o que é objeto do que é fundo é o passo que transforma a imagem em
+                  informação: a partir dele dá para <b>contar, medir e comparar regiões</b>. Numa foto aérea, é o que
+                  permite delimitar uma área, medir quanto do terreno está ocupado por uma cultura ou acompanhar uma
+                  faixa ao longo do tempo. Na pesquisa, é o que produz a máscara que um modelo de segmentação aprende
+                  a repetir.</p>
+                <p style="font-size:15.5px">O caminho no FotoFácil é o clássico do PDI: as bordas mostram
+                  <b>onde a intensidade varia</b>, o limiar de Otsu escolhe o corte a partir do próprio histograma e a
+                  morfologia fecha as falhas que sobraram. Nesta imagem, o limiar separou <b>22,5%</b> da área como
+                  objeto e a dilatação 5×5 levou para <b>25,0%</b>.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <p style="font-size:15.5px">O nó de <b>augmentação</b> gera variantes da mesma imagem para ampliar o conjunto. Ele usa uma <b>semente fixa</b>: quem repetir o fluxo obtém exatamente as mesmas variantes. É a diferença entre dados aumentados e dados aumentados de forma reprodutível.</p>
-        <div class="grade g3">
-          <figure class="fig fixa"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg" alt="Imagem com ruído sal e pimenta"><figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption></figure>
-          <figure class="fig fixa"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg" alt="Imagem após o filtro de mediana"><figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption></figure>
-        </div>
-      </div>
-      <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
-        <div class="cartao branco" style="gap:6px">
-          <span class="rotulo">Conjunto exportado pelo nó de saída rotulada</span>
-          <pre class="codigo compacto">saida/
+      </section>
+
+      <!-- ═══════════════════ 11 · RESULTADO 3 · DADOS PARA IA ═══════════════════ -->
+      <section class="slide" id="s-dataset" data-titulo="Resultado 3 · dados para IA" data-secao="Resultados">
+        <header class="faixa"><span class="rotulo">Resultados · 3 de 3 · preparação de dados</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Da pasta de fotos ao conjunto de treino</h2>
+        <div class="corpo">
+          <div class="grade g21">
+            <div class="aparece d2" style="display:flex;flex-direction:column;gap:10px">
+              <div class="grade g3">
+                <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-1.jpg"
+                    alt="Variante gerada pela augmentação">
+                  <figcaption>rotação</figcaption>
+                </figure>
+                <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-2.jpg"
+                    alt="Variante gerada pela augmentação">
+                  <figcaption>espelhamento</figcaption>
+                </figure>
+                <figure class="fig fixa"><img src="assets/img/pdi/20-augmentada-3.jpg"
+                    alt="Variante gerada pela augmentação">
+                  <figcaption>outra variação</figcaption>
+                </figure>
+              </div>
+              <p style="font-size:15.5px">O nó de <b>augmentação</b> gera variantes da mesma imagem para ampliar o
+                conjunto. Ele usa uma <b>semente fixa</b>: quem repetir o fluxo obtém exatamente as mesmas variantes. É
+                a diferença entre dados aumentados e dados aumentados de forma reprodutível.</p>
+              <div class="grade g3">
+                <figure class="fig fixa"><img src="assets/img/pdi/12-ruido-sal-e-pimenta.jpg"
+                    alt="Imagem com ruído sal e pimenta">
+                  <figcaption>com o nó em 6% de sal e pimenta: o desvio padrão sobe de 37,5 para 43,3</figcaption>
+                </figure>
+                <figure class="fig fixa"><img src="assets/img/pdi/13-ruido-filtrado-mediana.jpg"
+                    alt="Imagem após o filtro de mediana">
+                  <figcaption>depois da mediana 3×3: o desvio volta a 37,3, sem borrar a imagem</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="aparece d3" style="display:flex;flex-direction:column;gap:12px">
+              <div class="cartao branco" style="gap:6px">
+                <span class="rotulo">Conjunto exportado pelo nó de saída rotulada</span>
+                <pre class="codigo compacto">saida/
 ├─ train/
 │  ├─ exp_0.png
 │  ├─ exp_1.png
@@ -390,107 +578,124 @@
 └─ test/
    ├─ exp_4.png
    └─ exp_5.png</pre>
-          <p style="font-size:14.5px">6 imagens: 60% treino, 20% validação e o resto em teste, já em pastas que um framework de treino lê de imediato.</p>
-          <span class="selo">semente 42 · resultado repetível</span>
+                <p style="font-size:14.5px">6 imagens: 60% treino, 20% validação e o resto em teste, já em pastas que um
+                  framework de treino lê de imediato.</p>
+              </div>
+              <div class="cartao destaque">
+                <span class="rotulo">Por que isso é importante</span>
+                <p>O gargalo de quem pesquisa era preparar o dado, no FotoFácil ele virou um nó. A mesma ferramenta que
+                  ajusta a foto organiza o conjunto de treino.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="cartao destaque">
-          <span class="rotulo">Por que isso fecha o ciclo</span>
-          <p>O gargalo de quem pesquisa era preparar o dado; aqui ele virou um nó. A mesma ferramenta que ajusta a foto organiza o conjunto de treino.</p>
+      </section>
+
+      <!-- ═══════════════════ 12 · CONCLUSÃO ═══════════════════ -->
+      <section class="slide" id="s-conclusao" data-titulo="Conclusão" data-secao="Conclusão">
+        <header class="faixa"><span class="rotulo">Conclusão · o que os resultados respondem</span><span
+            class="faixa-evento">JECET 2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Estado atual e o futuro do sistema</h2>
+        <div class="corpo">
+          <div class="grade g2 aparece d2">
+            <div class="cartao branco" style="align-self:start">
+              <span class="rotulo">Objetivos respondidos</span>
+              <ul class="lista marcada">
+                <li><b>Montar sem código:</b> nós ligados por arrastar e soltar, com a ordem calculada pelo sistema.
+                </li>
+                <li><b>Repetir em lote:</b> atingido com ressalva, a execução ainda é <b>sequencial</b>, o ganho vem da
+                  repetição.</li>
+                <li><b>PDI clássico:</b> 28 nós, de brilho e contraste a Fourier, limiarização e morfologia, todos com
+                  teste.</li>
+                <li><b>Servir à pesquisa:</b> o conjunto exportado sai dividido em treino, validação e teste.</li>
+              </ul>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div class="cartao branco">
+                <span class="rotulo">Limites conhecidos</span>
+                <ul class="lista traco">
+                  <li><b>GeoTIFF multibanda ainda não é lido:</b> os nós de sensoriamento remoto têm a matemática
+                    correta, mas foram validados sobre imagens comuns, não sobre produtos reais de satélite.</li>
+                  <li><b>Nós de sensoriamento remoto:</b> dependem de imagens com bandas específicas, ainda não
+                    validados sobre dados reais de satélite.</li>
+                  <li><b>Persistência:</b> encontramos um caso em que o fluxo aberto pode ser gravado vazio antes de ser
+                    lido do banco; está registrado e é o primeiro item da fila.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- ═══════════════════ 13 · REFERÊNCIAS E ENCERRAMENTO ═══════════════════ -->
+      <section class="slide fim" id="s-fim" data-titulo="Referências e encerramento" data-secao="Referências">
+        <header class="faixa"><span class="rotulo">Conclusão · Referências bibliográficas</span><span
+            class="faixa-evento">JECET
+            2026 · FotoFácil</span></header>
+        <h2 class="titulo aparece d1">Bases do trabalho e onde encontrá-lo</h2>
+        <div class="corpo">
+          <div class="grade g2 aparece d2">
+            <ul class="lista traco" style="font-size:14.5px">
+              <li><b>GONZALEZ, R. C.; WOODS, R. E.</b> <em>Digital Image Processing</em>. 4. ed. Pearson, 2018.</li>
+              <li><b>OTSU, N.</b> A threshold selection method from gray-level histograms. <em>IEEE Trans. on Systems,
+                  Man, and Cybernetics</em>, v. 9, n. 1, p. 62-66, 1979.</li>
+              <li><b>COOLEY, J. W.; TUKEY, J. W.</b> An algorithm for the machine calculation of complex Fourier series.
+                <em>Mathematics of Computation</em>, v. 19, n. 90, p. 297-301, 1965.
+              </li>
+              <li><b>SOUSA, T.</b> Dataflow programming: concept, languages and applications. 2012.</li>
+            </ul>
+            <ul class="lista traco" style="font-size:14.5px">
+              <li><b>DEMŠAR, J. et al.</b> Orange: data mining toolbox in Python. <em>JMLR</em>, v. 14, p. 2349-2353,
+                2013.</li>
+              <li><b>BECK, K.</b> <em>Test-Driven Development: By Example</em>. Addison-Wesley, 2002.</li>
+              <li><b>GIMP Development Team</b> e <b>n8n</b>: documentação oficial de automação em lote e de fluxos
+                visuais.</li>
+              <li>Documentação técnica do projeto: referência dos 28 nós, mapa da arquitetura e guia de execução.</li>
+            </ul>
+          </div>
+          <div class="grade g2 aparece d3" style="align-items:end">
+            <div>
+              <span class="rotulo">Obrigado · perguntas?</span>
+              <div class="contato" style="display:flex;gap:34px;margin-top:10px;font-size:15px">
+                <div class="campo">
+                  <div class="num-rotulo">Autor</div>Nathan Henrique Guimarães de Oliveira
+                </div>
+                <div class="campo">
+                  <div class="num-rotulo">Contato</div>guimaraes.nathan@aluno.ifsp.edu.br
+                </div>
+              </div>
+            </div>
+            <div class="qrcode" style="display:flex;align-items:center;gap:16px;justify-content:flex-end">
+              <img src="assets/img/qr-repo.png" alt="Código QR do repositório do projeto"
+                style="width:112px;height:112px;border:1px solid var(--lav-line);border-radius:10px;padding:6px;background:#fff"
+                onerror="this.style.display='none'">
+              <div>
+                <div class="rotulo">Repositório do projeto</div>
+                <div class="mono" style="font-size:14px;color:var(--soft)">github.com/nathanhgo/foto-facil</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
+  </main>
+
+  <div id="visao" aria-hidden="true"></div>
+
+  <div id="nav">
+    <button id="btn-geral" title="Visão geral (tecla o)">▦ geral</button>
+    <button id="btn-print" title="Versão para PDF (tecla p)">PDF</button>
+    <button id="btn-tela" title="Tela cheia (tecla f)">⛶ tela cheia</button>
+    <span id="contador">01 / 13</span>
+    <button id="btn-ant" title="Anterior (←)">← anterior</button>
+    <button id="btn-prox" title="Próximo (→)">próxima →</button>
   </div>
-</section>
 
-<!-- ═══════════════════ 12 · CONCLUSÃO ═══════════════════ -->
-<section class="slide" id="s-conclusao" data-titulo="Conclusão" data-secao="Conclusão">
-  <header class="faixa"><span class="rotulo">Conclusão · o que os resultados respondem</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Objetivo por objetivo, e o que ainda falta</h2>
-  <div class="corpo">
-    <div class="grade g2 aparece d2">
-      <div class="cartao branco" style="align-self:start">
-        <span class="rotulo">Objetivos respondidos</span>
-        <ul class="lista marcada">
-          <li><b>Montar sem código:</b> nós ligados por arrastar e soltar, com a ordem calculada pelo sistema.</li>
-          <li><b>Repetir em lote:</b> atingido com ressalva, a execução ainda é <b>sequencial</b>, o ganho vem da repetição.</li>
-          <li><b>PDI clássico:</b> 28 nós, de brilho e contraste a Fourier, limiarização e morfologia, todos com teste.</li>
-          <li><b>Servir à pesquisa:</b> o conjunto exportado sai dividido em treino, validação e teste.</li>
-        </ul>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="cartao branco">
-          <span class="rotulo">Limites conhecidos</span>
-          <ul class="lista traco">
-            <li><b>O fluxo não é exportável:</b> o desenho fica salvo na máquina, mas ainda não sai como arquivo para outra pessoa abrir.</li>
-            <li><b>GeoTIFF multibanda ainda não é lido:</b> os nós de sensoriamento remoto têm a matemática correta, mas foram validados sobre imagens comuns, não sobre produtos reais de satélite.</li>
-            <li><b>Nós de sensoriamento remoto:</b> dependem de imagens com bandas específicas, ainda não validados sobre dados reais de satélite.</li>
-            <li><b>Persistência:</b> encontramos um caso em que o fluxo aberto pode ser gravado vazio antes de ser lido do banco; está registrado e é o primeiro item da fila.</li>
-          </ul>
-        </div>
-        <div class="cartao destaque">
-          <span class="rotulo">Próximos passos</span>
-          <p style="font-size:15.5px">Ler GeoTIFF multibanda para validar os nós de sensoriamento remoto sobre dados reais · corrigir a gravação do fluxo ativo · processar o lote em paralelo.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <div id="ajuda"><kbd>←</kbd> <kbd>→</kbd> navegar · <kbd>o</kbd> visão geral · <kbd>f</kbd> tela cheia · <kbd>p</kbd>
+    PDF</div>
 
-<!-- ═══════════════════ 13 · REFERÊNCIAS E ENCERRAMENTO ═══════════════════ -->
-<section class="slide fim" id="s-fim" data-titulo="Referências e encerramento" data-secao="Referências">
-  <header class="faixa"><span class="rotulo">V · Referências bibliográficas</span><span class="faixa-evento">JECET 2026 · FotoFácil</span></header>
-  <h2 class="titulo aparece d1">Bases do trabalho e onde encontrá-lo</h2>
-  <div class="corpo">
-    <div class="grade g2 aparece d2">
-      <ul class="lista traco" style="font-size:14.5px">
-        <li><b>GONZALEZ, R. C.; WOODS, R. E.</b> <em>Digital Image Processing</em>. 4. ed. Pearson, 2018.</li>
-        <li><b>OTSU, N.</b> A threshold selection method from gray-level histograms. <em>IEEE Trans. on Systems, Man, and Cybernetics</em>, v. 9, n. 1, p. 62-66, 1979.</li>
-        <li><b>COOLEY, J. W.; TUKEY, J. W.</b> An algorithm for the machine calculation of complex Fourier series. <em>Mathematics of Computation</em>, v. 19, n. 90, p. 297-301, 1965.</li>
-        <li><b>SOUSA, T.</b> Dataflow programming: concept, languages and applications. 2012.</li>
-      </ul>
-      <ul class="lista traco" style="font-size:14.5px">
-        <li><b>DEMŠAR, J. et al.</b> Orange: data mining toolbox in Python. <em>JMLR</em>, v. 14, p. 2349-2353, 2013.</li>
-        <li><b>BECK, K.</b> <em>Test-Driven Development: By Example</em>. Addison-Wesley, 2002.</li>
-        <li><b>GIMP Development Team</b> e <b>n8n</b>: documentação oficial de automação em lote e de fluxos visuais.</li>
-        <li>Documentação técnica do projeto: referência dos 28 nós, mapa da arquitetura e guia de execução.</li>
-      </ul>
-    </div>
-    <div class="grade g2 aparece d3" style="align-items:end">
-      <div>
-        <span class="rotulo">Obrigado · perguntas?</span>
-        <div class="contato" style="display:flex;gap:34px;margin-top:10px;font-size:15px">
-          <div class="campo"><div class="num-rotulo">Autor</div>Nathan Henrique Guimarães de Oliveira</div>
-          <div class="campo"><div class="num-rotulo">Orientação</div>Ana Paula Abrantes de Castro Shiguemori</div>
-          <div class="campo"><div class="num-rotulo">Contato</div>guimaraes.nathan@aluno.ifsp.edu.br</div>
-        </div>
-      </div>
-      <div class="qrcode" style="display:flex;align-items:center;gap:16px;justify-content:flex-end">
-        <img src="assets/img/qr-repo.png" alt="Código QR do repositório do projeto" style="width:112px;height:112px;border:1px solid var(--lav-line);border-radius:10px;padding:6px;background:#fff" onerror="this.style.display='none'">
-        <div>
-          <div class="rotulo">Repositório do projeto</div>
-          <div class="mono" style="font-size:14px;color:var(--soft)">github.com/nathanhgo/foto-facil</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div>
-</main>
-
-<div id="visao" aria-hidden="true"></div>
-
-<div id="nav">
-  <button id="btn-geral" title="Visão geral (tecla o)">▦ geral</button>
-  <button id="btn-print" title="Versão para PDF (tecla p)">PDF</button>
-  <button id="btn-tela" title="Tela cheia (tecla f)">⛶ tela cheia</button>
-  <span id="contador">01 / 13</span>
-  <button id="btn-ant" title="Anterior (←)">← anterior</button>
-  <button id="btn-prox" title="Próximo (→)">próxima →</button>
-</div>
-
-<div id="ajuda"><kbd>←</kbd> <kbd>→</kbd> navegar · <kbd>o</kbd> visão geral · <kbd>f</kbd> tela cheia · <kbd>p</kbd> PDF</div>
-
-<script src="assets/js/slides.js"></script>
+  <script src="assets/js/slides.js"></script>
 </body>
+
 </html>

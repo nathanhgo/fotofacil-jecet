@@ -1,4 +1,4 @@
-/* FotoFácil · JECET 2026 — apresentação em site
+/* FotoFácil · JECET 2026 · apresentação em site
    Folha de estilo principal. Paleta: branco + lavanda, tipografia serifada nos títulos. */
 
 *,
@@ -165,7 +165,10 @@ code, .mono { font-family: var(--mono); font-size: .92em; }
   background: var(--lav);
 }
 .lista.marcada li::before { content: "✓"; background: none; color: var(--ok); font-size: 15px; left: 0; top: -.12em; font-weight: 700; }
-.lista.traco li::before { content: "—"; background: none; color: var(--lav); left: 0; top: -.05em; }
+.lista.traco li::before {
+  content: ""; left: 2px; top: .52em; width: 8px; height: 8px;
+  border-radius: 50%; background: none; border: 1.5px solid var(--lav);
+}
 .lista li b { color: var(--ink); }
 
 .num-grande { font-family: var(--serif); font-size: 46px; font-weight: 600; color: var(--lav-text); line-height: 1; }
@@ -403,6 +406,17 @@ pre.codigo .ok { color: var(--ok); }
   .slide.ativa .diagrama .fluxo { animation: none; opacity: .85; }
 }
 
+/* ---------- imagem ampliada ----------------------------------------------- */
+.slide img { cursor: zoom-in; }
+.slider img { cursor: ew-resize; }
+#caixa-imagem {
+  position: fixed; inset: 0; display: none; place-items: center;
+  padding: 3vh 3vw; background: rgba(22, 20, 42, .74);
+  z-index: 60; cursor: zoom-out;
+}
+#caixa-imagem.aberta { display: grid; }
+#caixa-imagem img { max-width: 92vw; max-height: 90vh; border-radius: 10px; background: #fff; cursor: default; }
+
 /* ---------- navegação ----------------------------------------------------- */
 #progresso {
   position: fixed; left: 0; top: 0; bottom: 0; width: 9px;
@@ -473,5 +487,5 @@ body.geral #visao { display: grid; }
   .slide { position: static; display: flex !important; page-break-after: always; border: 0; border-radius: 0; box-shadow: none; transform: none; }
   .slide .aparece { opacity: 1 !important; transform: none !important; animation: none !important; }
   .slide .diagrama .fluxo { opacity: .85 !important; animation: none !important; }
-  #nav, #progresso, #ajuda, #visao, #dica-toque { display: none !important; }
+  #nav, #progresso, #ajuda, #visao, #dica-toque, #caixa-imagem { display: none !important; }
 }

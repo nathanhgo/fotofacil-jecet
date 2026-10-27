@@ -1,4 +1,4 @@
-# FotoFácil no JECET 2026 — apresentação em site
+# FotoFácil no JECET 2026 · apresentação em site
 
 Apresentação do **FotoFácil** (JECET Inovação 2026, IFSP Campus Jacareí) publicada como site
 navegável em vez de arquivo de slides. Serve para apresentar no navegador, com navegação por

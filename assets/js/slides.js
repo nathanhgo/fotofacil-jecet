@@ -353,3 +353,39 @@
     if (Number.isFinite(h) && h >= 1 && h <= total && h - 1 !== atual) irPara(h - 1, true);
   });
 })();
+
+/* ---------- imagem ampliada: clique abre, clique fora fecha ---------------- */
+(() => {
+  const caixa = document.createElement("div");
+  caixa.id = "caixa-imagem";
+  const alvo = document.createElement("img");
+  alvo.alt = "";
+  caixa.appendChild(alvo);
+  document.body.appendChild(caixa);
+
+  const aberta = () => caixa.classList.contains("aberta");
+  const fechar = () => {
+    caixa.classList.remove("aberta");
+    alvo.removeAttribute("src");
+  };
+
+  document.addEventListener("click", (evento) => {
+    if (aberta()) {
+      if (alvo.contains(evento.target)) return;   // clique na própria imagem não fecha
+      fechar();
+      return;
+    }
+    const imagem = evento.target.closest(".slide img");
+    if (!imagem || evento.target.closest(".slider")) return;
+    alvo.src = imagem.currentSrc || imagem.src;
+    alvo.alt = imagem.alt || "";
+    caixa.classList.add("aberta");
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key !== "Escape" || !aberta()) return;
+    evento.stopPropagation();   // Esc fecha só a imagem, não mexe na visão geral
+    evento.preventDefault();
+    fechar();
+  }, true);
+})();
